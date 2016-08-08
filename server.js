@@ -1,6 +1,7 @@
 var express = require( 'express' );
 var server = express();
 var bodyParser = require( 'body-parser' );
+
 server.use( express.static( 'public' ) ); //Don't forget this line ever again..
 
 server.get( '*', ( req, res ) => {
