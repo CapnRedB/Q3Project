@@ -2,9 +2,13 @@
 	color:#FFBF00!important;
 }
 .yahtzee{
-	background-color:#410B13!important;
+	background-color:#393E41!important;
 }
 .linked{
 	color:blue;
 	font-size: 50px;
+}
+.toplogo{
+	max-height: 50px;
+	max-width: 100px;	
 }
