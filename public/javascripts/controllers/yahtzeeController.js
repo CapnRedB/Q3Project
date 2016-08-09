@@ -12,7 +12,7 @@ app.config( function( $routeProvider, $httpProvider ) {
 			controllerAs: 'yahtzee'
 		} );
 } );
-app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', function( $scope, $firebaseArray ) {
+app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', function( $scope, $firebaseArray, $firebaseObject ) {
 	$scope.view = {};
 	$scope.view.player1 = {};
 	$scope.view.player2 = {};
@@ -53,7 +53,14 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', function( $scope, $
 	$scope.view.player2.lowertotal = $scope.view.player2.K3 + $scope.view.player2.K4 + $scope.view.player2.FH + $scope.view.player2.SmS + $scope.view.player2.LgS + $scope.view.player2.yahtzee + $scope.view.player2.chance + $scope.view.player2.yahtzeebonus;
 	$scope.view.player2.grandtotal = $scope.view.player2.uppertotal + $scope.view.player2.lowertotal;
 
-
+	var ref = firebase.database().ref().child("player1");
+	$firebaseObject(ref).$bindTo($scope, "view.player1");
+	$scope.playerCard = $firebaseObject(ref);
+	$scope.view.addOnes = function(){
+		$scope.view.$save({
+			aces: $scope.view.player1.aces
+		});
+	};
 } ] );
 
 app.controller( 'IndexController', [ '$scope', '$firebaseArray', function( $scope, $firebaseArray ) {
