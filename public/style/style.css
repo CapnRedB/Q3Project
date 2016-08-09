@@ -44,3 +44,6 @@ tbody:nth-child(even){
 	margin-right: 100px!important;
 	background-color: rgba(32,32,48, .95)!important;
 }
+td{
+	border-color:#393E41!important;
+}
