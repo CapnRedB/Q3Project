@@ -1,3 +1,4 @@
+
 .brand{
 	color:#FFBF00!important;
 }
@@ -46,4 +47,28 @@ tbody:nth-child(even){
 }
 td{
 	border-color:#393E41!important;
+}
+.signup{
+		border-radius: 10px;
+}
+.signup *{
+	color: #FFBF00!important;
+	border-color: #393E41;
+}
+.signuptext * {
+		color: #FFBF00!important;
+}
+.signupheader{
+	background-color: rgba(57,62,65, .95);
+}
+.signupbackdrop{
+	background: #202030;
+	border-radius: 10px;
+}
+.signupbox{
+	background-color: rgba(57,62,65, .90);
+
+}
+.signupbox *{
+	background-color: rgba(57,62,65, .90);
 }

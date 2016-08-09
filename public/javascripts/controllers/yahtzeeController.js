@@ -1,5 +1,5 @@
 var app = angular.module( 'yahtzeeApp', [ 'ngRoute', 'firebase' ] );
-app.config( function( $routeProvider, $httpProvider ) {
+app.config( function( $routeProvider, $httpProvider, $locationProvider ) {
 	$routeProvider
 		.when( '/', {
 			templateUrl: '/views/home.html',
@@ -10,7 +10,15 @@ app.config( function( $routeProvider, $httpProvider ) {
 			templateUrl: '/views/gameboard.html',
 			controller: 'yahtzeeCtrl',
 			controllerAs: 'yahtzee'
+		} )
+		.when( '/signup', {
+			templateUrl: '/views/signup.html',
+			controller: ''
 		} );
+	$locationProvider.html5Mode( {
+		enabled: true,
+		requireBase: false
+	} )
 } );
 app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', function( $scope, $firebaseArray, $firebaseObject ) {
 	$scope.view = {};
@@ -63,5 +71,4 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	};
 } ] );
 
-app.controller( 'IndexController', [ '$scope', '$firebaseArray', function( $scope, $firebaseArray ) {
-} ] );
+app.controller( 'IndexController', [ '$scope', '$firebaseArray', function( $scope, $firebaseArray ) {} ] );
