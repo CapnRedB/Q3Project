@@ -9,6 +9,41 @@
 	font-size: 50px;
 }
 .toplogo{
+	align-items: center;
 	max-height: 50px;
-	max-width: 100px;	
+	max-width: 100px;
+}
+.player{
+	font-size:50px;
+	color:#FFBF00!important;
+	display: flex;
+	justify-content: center;
+
+}
+.background{
+	background-image: url("https://images6.alphacoders.com/451/451028.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.scorecard{
+	color: #FFBF00;
+
+	background-color: rgba(65, 11, 19, .75);
+}
+tbody:nth-child(even){
+	background-color: rgba(57,62,65, .75)!important;
+}
+.section >td{
+	background-color: rgba(57,62,65, 1)!important;
+}
+.total > td{
+	background: rgba(233,79,55, 1)!important;
+}
+.backdrop{
+	margin-left: 100px!important;
+	margin-right: 100px!important;
+	background-color: rgba(32,32,48, .95)!important;
+}
+td{
+	border-color:#393E41!important;
 }
