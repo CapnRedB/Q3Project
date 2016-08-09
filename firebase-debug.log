@@ -1,0 +1,14 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /Users/Vioten/.npm-packages/bin/firebase serve
+[debug] CLI Version:  3.0.6
+[debug] Platform:     darwin
+[debug] Node Version: v4.4.3
+[debug] Time:         Tue Aug 09 2016 09:20:38 GMT-0500 (CDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/Vioten/Galvanize/Q3/Q3Project
+[info] Public Directory: public
+[info] 
+[info] Server listening at: http://localhost:5000
