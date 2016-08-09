@@ -16,17 +16,17 @@
 					<td>HOW TO SCORE</td>
 					<td>GAME SCORE</td>
 				</tr>
-				<tr ng-click="view.player1.aces=view.player1.aces+1">
+				<tr ng-click="updateFirstPlayerUpperScore('aces')">
 					<td>Aces: 1</td>
 					<td>Count and Add Only Aces</td>
 					<td>{{view.player1.aces}}</td>
 				</tr>
-				<tr>
+				<tr ng-click="view.player1.twos=view.player1.twos+1">
 					<td>Twos: 2</td>
 					<td>Count and Add Only Twos</td>
 					<td>{{view.player1.twos}}</td>
 				</tr>
-				<tr>
+				<tr ng-click="view.player1.threes=view.player1.threes+1">
 					<td>Threes: 3</td>
 					<td>Count and Add Only Threes</td>
 					<td>{{view.player1.threes}}</td>
@@ -41,7 +41,7 @@
 					<td>Count and Add Only Fives</td>
 					<td>{{view.player1.fives}}</td>
 				</tr>
-				<tr>
+				<tr ng-click="updateFirstPlayerUpperScore('sixes')">
 					<td>Sixes: 6</td>
 					<td>Count and Add Only Sixes</td>
 					<td>{{view.player1.sixes}}</td>
