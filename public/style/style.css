@@ -26,5 +26,21 @@
 	background-size: cover;
 }
 .scorecard{
-	background-color: rgba(255, 255, 255, .75);
+	color: #FFBF00;
+
+	background-color: rgba(65, 11, 19, .75);
+}
+tbody:nth-child(even){
+	background-color: rgba(57,62,65, .75)!important;
+}
+.section >td{
+	background-color: rgba(57,62,65, 1)!important;
+}
+.total > td{
+	background: rgba(233,79,55, 1)!important;
+}
+.backdrop{
+	margin-left: 100px!important;
+	margin-right: 100px!important;
+	background-color: rgba(32,32,48, .95)!important;
 }
