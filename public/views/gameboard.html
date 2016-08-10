@@ -13,26 +13,28 @@
 	<div class="container-fluid backdrop">
 		<div class="row">
 			<div class="dicecenter">
+				<div ng-repeat="die in view.tossResult track by $index">
 			<div class="col-xs-1">
-				<img class="dice" src="../img/1.png" alt="" />
+				<img class="dice" src="../img/{{die}}.png" alt="" />
+				</div>
+		</div>
+			<!-- <div class="col-xs-1">
+				<img class="dice" src="../img/{{view.d2}}.png" alt="" />
 			</div>
 			<div class="col-xs-1">
-				<img class="dice" src="../img/2.png" alt="" />
+				<img class="dice" src="../img/{{view.d2}}.png" alt="" />
 			</div>
 			<div class="col-xs-1">
-				<img class="dice" src="../img/3.png" alt="" />
+				<img class="dice" src="../img/{{view.d2}}.png" alt="" />
 			</div>
 			<div class="col-xs-1">
-				<img class="dice" src="../img/4.png" alt="" />
-			</div>
-			<div class="col-xs-1">
-				<img class="dice" src="../img/5.png" alt="" />
-			</div>
+				<img class="dice" src="../img/{{view.d2}}.png" alt="" />
+			</div> -->
 			</div>
 					</div>
 					<br>
 					<div class="row btncenter">
-							<button class="rollbtn" name="button">Roll</button>
+							<button class="rollbtn" name="button" ng-click="view.roll()">Roll</button>
 					</div>
 		<br>
 		<br>
@@ -45,7 +47,7 @@
 					<td>HOW TO SCORE</td>
 					<td>GAME SCORE</td>
 				</tr>
-				<tr ng-click="view.checkNumber(1, 'aces', 'player1')">
+				<tr ng-click=" view.player1.aces=view.player1.aces+1; updateP1UpperSubScore();">
 					<td>Aces: 1</td>
 					<td>Count and Add Only Aces</td>
 					<td>{{view.player1.aces}}</td>
