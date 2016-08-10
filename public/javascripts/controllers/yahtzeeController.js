@@ -22,10 +22,10 @@ app.config( function( $routeProvider, $httpProvider, $locationProvider ) {
 } );
 app.controller( 'signupCtrl', [ '$scope', '$firebaseAuth', function( $scope, $firebaseAuth ) {
 
-}]);
-
-
 } ] );
+
+
+
 app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', function( $scope, $firebaseArray, $firebaseObject ) {
 	var ref = firebase.database().ref().child( "player1" );
 	$firebaseObject( ref ).$bindTo( $scope, "view.player1" );
@@ -81,56 +81,55 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		$scope.view[ player ].uppersubtotal += count * num;
 	};
 
-	$scope.view.checkK3 = function(player){
+	$scope.view.checkK3 = function( player ) {
 		var resultSorted = tossResult.sort();
-		if ((resultSorted[0] === resultSorted[1] && resultSorted[1] === resultSorted[2]) || (resultSorted[1] === resultSorted[2] && resultSorted[2] === resultSorted[3]) || (resultSorted[2] === resultSorted[3] && resultSorted[3] === resultSorted[4])) {
-			$scope.view[player].K3 = tossResult[0] + tossResult[1] + tossResult[2] + tossResult[3] + tossResult[4];
+		if ( ( resultSorted[ 0 ] === resultSorted[ 1 ] && resultSorted[ 1 ] === resultSorted[ 2 ] ) || ( resultSorted[ 1 ] === resultSorted[ 2 ] && resultSorted[ 2 ] === resultSorted[ 3 ] ) || ( resultSorted[ 2 ] === resultSorted[ 3 ] && resultSorted[ 3 ] === resultSorted[ 4 ] ) ) {
+			$scope.view[ player ].K3 = tossResult[ 0 ] + tossResult[ 1 ] + tossResult[ 2 ] + tossResult[ 3 ] + tossResult[ 4 ];
 		} else {
-			$scope.view[player].K3 = 0;
+			$scope.view[ player ].K3 = 0;
 		}
 	};
-	$scope.view.checkK4 = function(player){
+	$scope.view.checkK4 = function( player ) {
 		var resultSorted = tossResult.sort();
-		if ((resultSorted[0] === resultSorted[1] && resultSorted[0] === resultSorted[2] && resultSorted[0] === resultSorted[3]) || (resultSorted[1] === resultSorted[2] && resultSorted[1] === resultSorted[3] && resultSorted[1] === resultSorted[4])) {
-			$scope.view[player].K4 = tossResult[0] + tossResult[1] + tossResult[2] + tossResult[3] + tossResult[4];
+		if ( ( resultSorted[ 0 ] === resultSorted[ 1 ] && resultSorted[ 0 ] === resultSorted[ 2 ] && resultSorted[ 0 ] === resultSorted[ 3 ] ) || ( resultSorted[ 1 ] === resultSorted[ 2 ] && resultSorted[ 1 ] === resultSorted[ 3 ] && resultSorted[ 1 ] === resultSorted[ 4 ] ) ) {
+			$scope.view[ player ].K4 = tossResult[ 0 ] + tossResult[ 1 ] + tossResult[ 2 ] + tossResult[ 3 ] + tossResult[ 4 ];
 		} else {
-			$scope.view[player].K4 = 0;
+			$scope.view[ player ].K4 = 0;
 		}
 	};
-	$scope.view.checkFH = function(player){
+	$scope.view.checkFH = function( player ) {
 		var resultSorted = tossResult.sort();
-		if ((resultSorted[0] === resultSorted[1] && resultSorted[2] === resultSorted[3] && resultSorted[2] === resultSorted[4]) || (resultSorted[0] === resultSorted[1] && resultSorted[0] === resultSorted[2] && resultSorted[3] === resultSorted[4])) {
-			$scope.view[player].FH = 25;
+		if ( ( resultSorted[ 0 ] === resultSorted[ 1 ] && resultSorted[ 2 ] === resultSorted[ 3 ] && resultSorted[ 2 ] === resultSorted[ 4 ] ) || ( resultSorted[ 0 ] === resultSorted[ 1 ] && resultSorted[ 0 ] === resultSorted[ 2 ] && resultSorted[ 3 ] === resultSorted[ 4 ] ) ) {
+			$scope.view[ player ].FH = 25;
 		} else {
-			$scope.view[player].FH = 0;
+			$scope.view[ player ].FH = 0;
 		}
 	};
-	$scope.view.checkSmS = function(player){
+	$scope.view.checkSmS = function( player ) {
 		var resultSorted = tossResult.sort();
-		if (/1234|2345|3456/.test( resultSorted.join("").replace(/(.)\1/,"$1") )) {
-			$scope.view[player].SmS = 30;
+		if ( /1234|2345|3456/.test( resultSorted.join( "" ).replace( /(.)\1/, "$1" ) ) ) {
+			$scope.view[ player ].SmS = 30;
 		} else {
-			$scope.view[player].SmS = 0;
+			$scope.view[ player ].SmS = 0;
 		}
 	};
-	$scope.view.checkLgS = function(player){
+	$scope.view.checkLgS = function( player ) {
 		var resultSorted = tossResult.sort();
-		if (/12345|23456/.test( resultSorted.join(""))) {
-			$scope.view[player].LgS = 40;
+		if ( /12345|23456/.test( resultSorted.join( "" ) ) ) {
+			$scope.view[ player ].LgS = 40;
 		} else {
-			$scope.view[player].LgS = 0;
+			$scope.view[ player ].LgS = 0;
 		}
 	};
-	$scope.view.checkyahtzee = function(player){
-		if (tossResult[0] === tossResult[1] && tossResult[0] === tossResult[2] && tossResult[0] === tossResult[3] && tossResult[0] === tossResult[4]) {
-			$scope.view[player].yahtzee = 50;
-		}
-		else {
-			$scope.view[player].yahtzee = 0;
+	$scope.view.checkyahtzee = function( player ) {
+		if ( tossResult[ 0 ] === tossResult[ 1 ] && tossResult[ 0 ] === tossResult[ 2 ] && tossResult[ 0 ] === tossResult[ 3 ] && tossResult[ 0 ] === tossResult[ 4 ] ) {
+			$scope.view[ player ].yahtzee = 50;
+		} else {
+			$scope.view[ player ].yahtzee = 0;
 		}
 	};
-	$scope.view.checkchance = function(player){
-		$scope.view[player].chance = tossResult[0]+tossResult[1]+tossResult[2]+tossResult[3]+tossResult[4];
+	$scope.view.checkchance = function( player ) {
+		$scope.view[ player ].chance = tossResult[ 0 ] + tossResult[ 1 ] + tossResult[ 2 ] + tossResult[ 3 ] + tossResult[ 4 ];
 	};
 } ] );
 
