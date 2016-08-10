@@ -33,15 +33,14 @@
 }
 
 .dice{
-	width: 30px;
-	height: 30px;
-	background-color: red;
+	max-width: 50px;
+	max-height: 50px;
 }
 .dice:hover{
 	border: 1px solid blue;
 }
 .dicecenter{
-	margin-left: 4%;
+	margin-left: 2.84%;
 	display: flex;
 	justify-content: center;
 }
@@ -87,10 +86,19 @@ td{
 .signupbox *{
 	background-color: rgba(57,62,65, .90);
 }
+.btncenter{
+	display: flex;
+	justify-content: center;
+}
 .center{
 	float: none;
 	margin: 0 auto;
 }
-.btn{
+.rollbtn{
+	color: #FFBF00;
 	background-color: #410B13!important;
+	border-color: #393E41;
+}
+.rollbtn:hover{
+	color: #C05746!important;
 }
