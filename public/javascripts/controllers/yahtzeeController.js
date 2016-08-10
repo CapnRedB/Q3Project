@@ -22,19 +22,8 @@ app.config( function( $routeProvider, $httpProvider, $locationProvider ) {
 } );
 app.controller( 'signupCtrl', [ '$scope', '$firebaseAuth', function( $scope, $firebaseAuth ) {
 
-<<<<<<< HEAD
-app.config(function($routeProvider){
-  $routeProvider
-  .when('signin', {
-    templateUrl: '../../signin',
-    controller: 'yahtzeeCtrl'
-  });
-});
-
-app.controller('yahtzeeCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray){
-  var ref = new Firebase('https://billandaaronsyahtzee.firebaseio.com/');
 }]);
-=======
+
 
 } ] );
 app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', function( $scope, $firebaseArray, $firebaseObject ) {
@@ -95,4 +84,3 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 } ] );
 
 app.controller( 'IndexController', [ '$scope', '$firebaseArray', function( $scope, $firebaseArray ) {} ] );
->>>>>>> 0b7b7eda3c5d76a919773d98e7d8b6c980ba94ba
