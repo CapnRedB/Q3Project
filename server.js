@@ -1,7 +1,7 @@
 var express = require( 'express' );
 var server = express();
 var bodyParser = require( 'body-parser' );
-app.use( bodyParser.json() )
+server.use( bodyParser.json() )
 	.use( bodyParser.urlencoded( {
 		extened: false
 	} ) )
