@@ -1,6 +1,15 @@
 var express = require( 'express' );
 var server = express();
 var bodyParser = require( 'body-parser' );
+var app = angular.module('yahtzeeApp', ['ngRoute']);
+
+app.config(function($routeProvider){
+  $routeProvider
+  .when('signin', {
+    templateUrl: '../../signin',
+    controller: 'yahtzeeCtrl'
+  });
+});
 
 server.use( express.static( 'public' ) ); //Don't forget this line ever again..
 

@@ -1,11 +1,11 @@
 var app = angular.module('yahtzeeApp', ['ngRoute']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider){
   $routeProvider
-    .when('gameboard', {
-      templateUrl: '../../views/gameboard.html',
-      controller: 'yahtzeeCtrl'
-    });
+  .when('signin', {
+    templateUrl: '../../signin',
+    controller: 'yahtzeeCtrl'
+  });
 });
 
 app.controller('yahtzeeCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray){
