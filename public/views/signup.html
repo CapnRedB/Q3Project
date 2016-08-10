@@ -12,9 +12,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html>
-<head ng-app>
+<head>
   <meta charset=utf-8 />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../style/style.css">
+
   <title>Email/Password Authentication Example</title>
 
   <!-- Material Design Theming -->
@@ -24,7 +26,7 @@ limitations under the License.
 
 
   <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
 	<script>
 	  // Initialize Firebase
 	  var config = {
@@ -36,8 +38,7 @@ limitations under the License.
 	  firebase.initializeApp(config);
 	</script>
 	<script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
-	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.css" />
-	<link rel="stylesheet" href="../style/style.css">
+	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.css" /> -->
 
   <script type="text/javascript">
     /**
@@ -157,9 +158,9 @@ limitations under the License.
     function initApp() {
       // Listening for auth state changes.
       // [START authstatelistener]
+			console.log("Initialized");
       firebase.auth().onAuthStateChanged(function(user) {
         // [START_EXCLUDE silent]
-        document.getElementById('quickstart-verify-email').disabled = true;
         // [END_EXCLUDE]
         if (user) {
           // User is signed in.
@@ -185,15 +186,15 @@ limitations under the License.
             providerData: providerData
           }, null, '  ');
           if (!emailVerified) {
-            document.getElementById('quickstart-verify-email').disabled = false;
+            //document.getElementById('quickstart-verify-email').disabled = false;
           }
           // [END_EXCLUDE]
         } else {
           // User is signed out.
           // [START_EXCLUDE silent]
-          document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
-          document.getElementById('quickstart-sign-in').textContent = 'Sign in';
-          document.getElementById('quickstart-account-details').textContent = 'null';
+          // document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
+          // document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+          // document.getElementById('quickstart-account-details').textContent = 'null';
           // [END_EXCLUDE]
         }
         // [START_EXCLUDE silent]
@@ -203,8 +204,7 @@ limitations under the License.
       // [END authstatelistener]
       document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
       document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-      document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
-      document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+			console.log("Initialized");
     }
     window.onload = function() {
       initApp();
@@ -213,17 +213,17 @@ limitations under the License.
 </head>
 <body>
 	<div class="container-fluid">
-	<div class="row">
-<div class="col-xs-5 col-xs-offset-3 signupbackdrop">
+	<div class="row ">
+<div class="col-xs-4 signupbackdrop center">
 
   <!-- Header section containing title -->
-  <header class="signupheader">
-    <div class="signupheader">
+  <header class="">
+    <div class="">
         <a class="signuptext bar"href="/"><h3>YAHTZEE!</h3></a>
   </header>
 
   <main class="signup">
-    <div class="signupbackdrop">
+    <div class="">
 
       <!-- Container for the demo -->
         <div class=" signupbox">
@@ -233,9 +233,9 @@ limitations under the License.
           &nbsp;&nbsp;&nbsp;
           <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
           <br/><br/>
-          <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
+          <button disabled class="btn btn-default signupbtn" id="quickstart-sign-in" name="signin">Sign In</button>
           &nbsp;&nbsp;&nbsp;
-          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
+          <button class="btn btn-default signupbtn" id="quickstart-sign-up" name="signup">Sign Up</button>
           &nbsp;&nbsp;&nbsp;
 
 

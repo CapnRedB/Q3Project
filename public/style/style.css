@@ -15,14 +15,14 @@
 	max-width: 100px;
 }
 .player{
-	font-size:50px;
+	font-size:72px;
 	color:#FFBF00!important;
 	display: flex;
 	justify-content: center;
 
 }
 .background{
-	background-image: url("https://images6.alphacoders.com/451/451028.jpg");
+	background-image: url("https://images7.alphacoders.com/377/377071.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -31,8 +31,19 @@
 
 	background-color: rgba(65, 11, 19, .75);
 }
-tbody:nth-child(even){
-	background-color: rgba(57,62,65, .75)!important;
+
+.dice{
+	width: 30px;
+	height: 30px;
+	background-color: red;
+}
+.dice:hover{
+	border: 1px solid blue;
+}
+.dicecenter{
+	margin-left: 4%;
+	display: flex;
+	justify-content: center;
 }
 .section >td{
 	background-color: rgba(57,62,65, 1)!important;
@@ -41,9 +52,9 @@ tbody:nth-child(even){
 	background: rgba(233,79,55, 1)!important;
 }
 .backdrop{
-	margin-left: 100px!important;
-	margin-right: 100px!important;
-	background-color: rgba(32,32,48, .95)!important;
+	margin-left: 10%!important;
+	margin-right: 10%!important;
+	background-color: rgba(32,32,48, .5)!important;
 }
 td{
 	border-color:#393E41!important;
@@ -58,11 +69,15 @@ td{
 .signuptext * {
 		color: #FFBF00!important;
 }
+.signuptext input {
+	border-color:#410B13;
+}
 .signupheader{
 	background-color: rgba(57,62,65, .95);
 }
 .signupbackdrop{
 	background: #202030;
+	padding-bottom: 20px;
 	border-radius: 10px;
 }
 .signupbox{
@@ -71,4 +86,11 @@ td{
 }
 .signupbox *{
 	background-color: rgba(57,62,65, .90);
+}
+.center{
+	float: none;
+	margin: 0 auto;
+}
+.btn{
+	background-color: #410B13!important;
 }
