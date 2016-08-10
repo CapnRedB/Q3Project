@@ -1,9 +1,9 @@
 var express = require( 'express' );
 var server = express();
-var bodyParser = require( 'body-parser' );
+var bodyParser = require( 'body-parser' ); <<
 server.use( bodyParser.json() )
 	.use( bodyParser.urlencoded( {
-		extened: false
+		extended: false;
 	} ) )
 server.use( express.static( 'public' ) ); //Don't forget this line ever again..
 
