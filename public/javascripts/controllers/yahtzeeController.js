@@ -80,9 +80,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		$scope.view[ player ][ score ] = count * num;
 		$scope.view[ player ].uppersubtotal += count * num;
 	};
-<<<<<<< HEAD
 
-=======
 	$scope.view.checkK3 = function(player){
 		var resultSorted = tossResult.sort();
 		if ((resultSorted[0] === resultSorted[1] && resultSorted[1] === resultSorted[2]) || (resultSorted[1] === resultSorted[2] && resultSorted[2] === resultSorted[3]) || (resultSorted[2] === resultSorted[3] && resultSorted[3] === resultSorted[4])) {
@@ -134,7 +132,6 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.view.checkchance = function(player){
 		$scope.view[player].chance = tossResult[0]+tossResult[1]+tossResult[2]+tossResult[3]+tossResult[4];
 	};
->>>>>>> e1c170d40960a210d199834c0bd7b100319289cb
 } ] );
 
 app.controller( 'IndexController', [ '$scope', '$firebaseArray', function( $scope, $firebaseArray ) {} ] );
