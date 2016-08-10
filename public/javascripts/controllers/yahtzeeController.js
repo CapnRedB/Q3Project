@@ -20,11 +20,15 @@ app.config( function( $routeProvider, $httpProvider, $locationProvider ) {
 		requireBase: false
 	} );
 } );
+app.controller( 'signupCtrl', [ '$scope', '$firebaseAuth', function( $scope, $firebaseAuth ) {
+
+
+} ] );
 app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', function( $scope, $firebaseArray, $firebaseObject ) {
-	var ref = firebase.database().ref().child("player1");
-	$firebaseObject(ref).$bindTo($scope, "view.player1");
-	var ref2 = firebase.database().ref().child("player2");
-	$firebaseObject(ref2).$bindTo($scope, "view.player2");
+	var ref = firebase.database().ref().child( "player1" );
+	$firebaseObject( ref ).$bindTo( $scope, "view.player1" );
+	var ref2 = firebase.database().ref().child( "player2" );
+	$firebaseObject( ref2 ).$bindTo( $scope, "view.player2" );
 	$scope.view = {};
 	$scope.view.player1 = {};
 	$scope.view.player2 = {};
@@ -64,17 +68,17 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.view.player2.yahtzeebonus = 0;
 	$scope.view.player2.lowertotal = $scope.view.player2.K3 + $scope.view.player2.K4 + $scope.view.player2.FH + $scope.view.player2.SmS + $scope.view.player2.LgS + $scope.view.player2.yahtzee + $scope.view.player2.chance + $scope.view.player2.yahtzeebonus;
 	$scope.view.player2.grandtotal = $scope.view.player2.uppertotal + $scope.view.player2.lowertotal;
-	$scope.view.checkNumber = function(num, score, player){
+	$scope.view.checkNumber = function( num, score, player ) {
 		var count = 0;
-		for (var i = 0; i < 5; i++) {
-			if (tossResult[i] === num) {
+		for ( var i = 0; i < 5; i++ ) {
+			if ( tossResult[ i ] === num ) {
 				count++;
 			}
 		}
-		$scope.view[player][score] = count * num;
-		$scope.view[player].uppersubtotal+=count*num;
+		$scope.view[ player ][ score ] = count * num;
+		$scope.view[ player ].uppersubtotal += count * num;
 	};
-	
+
 } ] );
 
 app.controller( 'IndexController', [ '$scope', '$firebaseArray', function( $scope, $firebaseArray ) {} ] );
