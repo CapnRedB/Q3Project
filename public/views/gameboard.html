@@ -1,0 +1,269 @@
+<main class="container-fluid ">
+	<section>
+		<div class="row">
+			<div class="col-xs-12">
+
+
+					<span class="player">Aaron's Turn!</span>
+							</div>
+										</div>
+
+	</section>
+
+	<div class="container-fluid backdrop">
+		<div class="row">
+			<div class="dicecenter">
+			<div class="col-xs-1">
+				<img class="dice" src="../img/1.png" alt="" />
+			</div>
+			<div class="col-xs-1">
+				<div class="dice"><img class="dice" src="../img/2.png" alt="" /></div>
+			</div>
+			<div class="col-xs-1">
+				<div class="dice"><img class="dice" src="../img/3.png" alt="" /></div>
+			</div>
+			<div class="col-xs-1">
+				<div class="dice"><img class="dice" src="../img/4.png" alt="" /></div>
+			</div>
+			<div class="col-xs-1">
+				<div class="dice"><img class="dice" src="../img/5.png" alt="" /></div>
+			</div>
+			</div>
+					</div>
+					<br>
+					<div class="row btncenter">
+							<button class="rollbtn" name="button">Roll</button>
+					</div>
+		<br>
+		<br>
+	<div class="container">
+	<div class="row">
+		<div class="col-xs-6">
+			<table class=" table scorecard ">
+				<tr class="section">
+					<td>UPPER SECTION</td>
+					<td>HOW TO SCORE</td>
+					<td>GAME SCORE</td>
+				</tr>
+				<tr ng-click="view.checkNumber(1, 'aces', 'player1')">
+					<td>Aces: 1</td>
+					<td>Count and Add Only Aces</td>
+					<td>{{view.player1.aces}}</td>
+				</tr>
+				<tr ng-click="view.checkNumber(2, 'twos', 'player1')">
+					<td>Twos: 2</td>
+					<td>Count and Add Only Twos</td>
+					<td>{{view.player1.twos}}</td>
+				</tr>
+				<tr ng-click="view.checkNumber(3, 'threes', 'player1')">
+					<td>Threes: 3</td>
+					<td>Count and Add Only Threes</td>
+					<td>{{view.player1.threes}}</td>
+				</tr>
+				<tr ng-click="view.checkNumber(4, 'fours', 'player1')">
+					<td>Fours: 4</td>
+					<td>Count and Add Only Fours</td>
+					<td>{{view.player1.fours}}</td>
+				</tr>
+				<tr ng-click="view.checkNumber(5, 'fives', 'player1')">
+					<td>Fives: 5</td>
+					<td>Count and Add Only Fives</td>
+					<td>{{view.player1.fives}}</td>
+				</tr>
+				<tr ng-click="view.checkNumber(6, 'sixes', 'player1')">
+					<td>Sixes: 6</td>
+					<td>Count and Add Only Sixes</td>
+					<td>{{view.player1.sixes}}</td>
+				</tr>
+				<tr class="total">
+					<td>TOTAL SCORE</td>
+					<td>------</td>
+					<td>{{view.player1.uppersubtotal}}</td>
+				</tr>
+				<tr>
+					<td>BONUS!</td>
+					<td>If total Score is 63+</td>
+					<td>35</td>
+				</tr>
+				<tr class="total">
+					<td>TOTAL</td>
+					<td>Of Upper Section</td>
+					<td>{{view.player1.uppertotal}}</td>
+				</tr>
+				<tr  class="section">
+					<td >LOWER SECTION</td>
+					<td ></td>
+					<td ></td>
+				</tr>
+				<tr>
+					<td>3 of a kind</td>
+					<td>Add Total of All Dice</td>
+					<td>{{view.player1.K3}}</td>
+				</tr>
+				<tr>
+					<td>4 of a kind</td>
+					<td>Add Total of All Dice</td>
+					<td>{{view.player1.K4}}</td>
+				</tr>
+				<tr>
+					<td>Full House</td>
+					<td>Score: 25</td>
+					<td>{{view.player1.FH}}</td>
+				</tr>
+				<td>Small Straight (4)</td>
+				<td>Score: 30</td>
+				<td>{{view.player1.SmS}}</td>
+				<tr>
+					<td>Large Straight (5)</td>
+					<td>Score: 40</td>
+					<td>{{view.player1.LgS}}</td>
+				</tr>
+				<tr>
+					<td>YAHTZEE!</td>
+					<td>Score: 50</td>
+					<td>{{view.player1.yahtzee}}</td>
+				</tr>
+				<tr>
+					<td>Chance</td>
+					<td>Score Total of All 5 Dice</td>
+					<td>{{view.player1.chance}}</td>
+				</tr>
+				<tr>
+					<td>YAHTZEE BONUS!</td>
+					<td>100 Per Bonus</td>
+					<td>{{view.player1.yahtzeebonus}}</td>
+				</tr>
+				<tr class="total">
+					<td>TOTAL Lower</td>
+					<td>--------</td>
+					<td>{{view.player1.lowertotal}}</td>
+				</tr>
+				<tr class="total">
+					<td class="total">Total Upper</td>
+					<td>-------</td>
+					<td>{{view.player1.uppertotal}}</td>
+				</tr>
+				<tr class="total">
+					<td>GRAND TOTAL</td>
+					<td>-------</td>
+					<td>{{view.player1.grandtotal}}</td>
+				</tr>
+			</table>
+					</div>
+					<div class="col-xs-6">
+						<table class=" table scorecard ">
+							<tr class="section">
+								<td>UPPER SECTION</td>
+								<td>HOW TO SCORE</td>
+								<td>GAME SCORE</td>
+							</tr>
+							<tr ng-click="view.checkNumber(1, 'aces', 'player2')">
+								<td>Aces: 1</td>
+								<td>Count and Add Only Aces</td>
+								<td>{{view.player2.aces}}</td>
+							</tr>
+							<tr ng-click="view.checkNumber(2, 'twos', 'player2')">
+								<td>Twos: 2</td>
+								<td>Count and Add Only Twos</td>
+								<td>{{view.player2.twos}}</td>
+							</tr>
+							<tr ng-click="view.checkNumber(3, 'threes', 'player2')">
+								<td>Threes: 3</td>
+								<td>Count and Add Only Threes</td>
+								<td>{{view.player2.threes}}</td>
+							</tr>
+							<tr ng-click="view.checkNumber(4, 'fours', 'player2')">
+								<td>Fours: 4</td>
+								<td>Count and Add Only Fours</td>
+								<td>{{view.player2.fours}}</td>
+							</tr>
+							<tr ng-click="view.checkNumber(5, 'fives', 'player2')">
+								<td>Fives: 5</td>
+								<td>Count and Add Only Fives</td>
+								<td>{{view.player2.fives}}</td>
+							</tr>
+							<tr ng-click="view.checkNumber(6, 'sixes', 'player2')">
+								<td>Sixes: 6</td>
+								<td>Count and Add Only Sixes</td>
+								<td>{{view.player2.sixes}}</td>
+							</tr>
+							<tr class="total">
+								<td>TOTAL SCORE</td>
+								<td>------</td>
+								<td>{{view.player2.uppersubtotal}}</td>
+							</tr>
+							<tr>
+								<td>BONUS!</td>
+								<td>If total Score is 63+</td>
+								<td>35</td>
+							</tr>
+							<tr class="total">
+								<td>TOTAL</td>
+								<td>Of Upper Section</td>
+								<td>{{view.player2.uppertotal}}</td>
+							</tr>
+							<tr  class="section">
+								<td >LOWER SECTION</td>
+								<td ></td>
+								<td ></td>
+							</tr>
+							<tr>
+								<td>3 of a kind</td>
+								<td>Add Total of All Dice</td>
+								<td>{{view.player2.K3}}</td>
+							</tr>
+							<tr>
+								<td>4 of a kind</td>
+								<td>Add Total of All Dice</td>
+								<td>{{view.player2.K4}}</td>
+							</tr>
+							<tr>
+								<td>Full House</td>
+								<td>Score: 25</td>
+								<td>{{view.player2.FH}}</td>
+							</tr>
+							<td>Small Straight (4)</td>
+							<td>Score: 30</td>
+							<td>{{view.player2.SmS}}</td>
+							<tr>
+								<td>Large Straight (5)</td>
+								<td>Score: 40</td>
+								<td>{{view.player2.LgS}}</td>
+							</tr>
+							<tr>
+								<td>YAHTZEE!</td>
+								<td>Score: 50</td>
+								<td>{{view.player2.yahtzee}}</td>
+							</tr>
+							<tr>
+								<td>Chance</td>
+								<td>Score Total of All 5 Dice</td>
+								<td>{{view.player2.chance}}</td>
+							</tr>
+							<tr>
+								<td>YAHTZEE BONUS!</td>
+								<td>100 Per Bonus</td>
+								<td>{{view.player2.yahtzeebonus}}</td>
+							</tr>
+							<tr class="total">
+								<td>TOTAL Lower</td>
+								<td>--------</td>
+								<td>{{view.player2.lowertotal}}</td>
+							</tr>
+							<tr class="total">
+								<td class="total">Total Upper</td>
+								<td>-------</td>
+								<td>{{view.player2.uppertotal}}</td>
+							</tr>
+							<tr class="total">
+								<td>GRAND TOTAL</td>
+								<td>-------</td>
+								<td>{{view.player2.grandtotal}}</td>
+							</tr>
+						</table>
+								</div>
+
+				</div>
+	</div>
+		</div>
+</main>
