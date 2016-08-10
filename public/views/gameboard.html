@@ -13,7 +13,7 @@
 	<div class="container-fluid backdrop">
 		<div class="row">
 			<div class="dicecenter">
-				<div ng-repeat="die in view.tossResult track by $index">
+				<div ng-repeat="die in view.viewResult track by $index">
 			<div class="col-xs-1">
 				<img class="dice" src="../img/{{die}}.png" alt="" />
 				</div>
@@ -34,7 +34,7 @@
 					</div>
 					<br>
 					<div class="row btncenter">
-							<button class="rollbtn" name="button" ng-click="view.roll()">Roll</button>
+							<button class="rollbtn" name="button" ng-click="roll()">Roll</button>
 					</div>
 		<br>
 		<br>

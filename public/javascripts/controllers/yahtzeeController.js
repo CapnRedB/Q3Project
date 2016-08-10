@@ -73,17 +73,19 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	// $scope.view.player2.lowertotal = $scope.view.player2.K3 + $scope.view.player2.K4 + $scope.view.player2.FH + $scope.view.player2.SmS + $scope.view.player2.LgS + $scope.view.player2.yahtzee + $scope.view.player2.chance + $scope.view.player2.yahtzeebonus;
 	// $scope.view.player2.grandtotal = $scope.view.player2.uppertotal + $scope.view.player2.lowertotal;
 	$scope.view.tossResult = [];
+	$scope.view.viewResult = ""
 	$scope.view.d0 = $scope.view.tossResult[ 0 ];
 	$scope.view.d1 = $scope.view.tossResult[ 1 ];
 	$scope.view.d2 = $scope.view.tossResult[ 2 ];
 	$scope.view.d3 = $scope.view.tossResult[ 3 ];
 	$scope.view.d4 = $scope.view.tossResult[ 4 ];
-	$scope.view.roll = function() {
+	$scope.roll = function() {
+		var result = "";
 		for ( var i = 0; i < 5; i++ ) {
-			$scope.view.tossResult[ i ] = Math.ceil( Math.random() * 6 );
-			console.log( $scope.view.tossResult[ i ] );
+			var num = Math.ceil( Math.random() * 6 );
+			result += "" + num;
 		}
-
+		$scope.view.viewResult = result;
 	}
 	$scope.updateP1UpperSubScore = function() {
 		console.log( "fuck" );
