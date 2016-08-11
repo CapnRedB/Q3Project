@@ -23,6 +23,7 @@ $scope.view.player1.FH = 0;
 $scope.view.player1.SmS = 0;
 $scope.view.player1.LgS = 0;
 $scope.view.player1.yahtzee = 0;
+$scope.view.player1.bonus = 0;
 $scope.view.player1.chance = 0;
 $scope.view.player1.yahtzeebonus = 0;
 $scope.view.player1.lowertotal = $scope.view.player1.K3 + $scope.view.player1.K4 + $scope.view.player1.FH + $scope.view.player1.SmS + $scope.view.player1.LgS + $scope.view.player1.yahtzee + $scope.view.player1.chance + $scope.view.player1.yahtzeebonus;
@@ -41,6 +42,7 @@ $scope.view.player2.FH = 0;
 $scope.view.player2.SmS = 0;
 $scope.view.player2.LgS = 0;
 $scope.view.player2.yahtzee = 0;
+$scope.view.player2.bonus = 0;
 $scope.view.player2.chance = 0;
 $scope.view.player2.yahtzeebonus = 0;
 $scope.view.player2.lowertotal = $scope.view.player2.K3 + $scope.view.player2.K4 + $scope.view.player2.FH + $scope.view.player2.SmS + $scope.view.player2.LgS + $scope.view.player2.yahtzee + $scope.view.player2.chance + $scope.view.player2.yahtzeebonus;
@@ -126,7 +128,7 @@ $scope.view.checkBonus = function( player ) {
 $scope.view.checkChance = function( player ) {
 	$scope.view[ player ].chance = $scope.view.tossResult[ 0 ] + $scope.view.tossResult[ 1 ] + $scope.view.tossResult[ 2 ] + $scope.view.tossResult[ 3 ] + $scope.view.tossResult[ 4 ];
 };
-afterEach( function() {
+beforeEach( function() {
 	$scope.view.tossResult = [];
 } )
 describe( 'Testing checkK3', function() {
@@ -144,6 +146,13 @@ describe( 'Testing checkK3', function() {
 		$scope.view.tossResult = [ 1, 2, 3, 4, 5 ];
 		$scope.view.checkK3( "player1" )
 		expect( $scope.view.player1.K3 ).to.equal( 0 );
+	} )
+} )
+describe( "Testing data integrity", function() {
+	it( 'should not be changing player 2', function() {
+		$scope.view.tossResult = [ 6, 6, 6, 1, 2 ];
+		$scope.view.checkK3( "player1" );
+		expect( $scope.view.player2.K3 ).to.not.equal( 21 );
 	} )
 } )
 describe( 'Testing checkK4', function() {
@@ -185,3 +194,116 @@ describe( 'Testing checkFH', function() {
 		expect( $scope.view.player2.FH ).to.equal( 0 );
 	} )
 } )
+describe( 'Testing checkSmS (Cause bill would not let me call it checkSS)', function() {
+	it( 'should return 30 1-4', function() {
+		$scope.view.tossResult = [ 1, 2, 3, 4, 6 ]
+		$scope.view.checkSmS( 'player2' );
+		expect( $scope.view.player2.SmS ).to.equal( 30 );
+	} )
+	it( 'should return 30 mixing up order', function() {
+		$scope.view.tossResult = [ 1, 2, 3, 6, 4 ]
+		$scope.view.checkSmS( 'player2' );
+		expect( $scope.view.player2.SmS ).to.equal( 30 );
+	} )
+	it( 'should return 30, 2-5', function() {
+		$scope.view.tossResult = [ 2, 3, 4, 5, 5 ]
+		$scope.view.checkSmS( 'player1' );
+		expect( $scope.view.player1.SmS ).to.equal( 30 );
+	} )
+	it( 'should return 30 2-5 mixed order', function() {
+		$scope.view.tossResult = [ 5, 3, 4, 2, 4 ];
+		$scope.view.checkSmS( 'player2' );
+		expect( $scope.view.player2.SmS ).to.equal( 30 );
+	} )
+	it( 'should return 30 3-6', function() {
+		$scope.view.tossResult = [ 3, 4, 5, 6, 4 ];
+		$scope.view.checkSmS( 'player2' );
+		expect( $scope.view.player2.SmS ).to.equal( 30 );
+	} )
+	it( 'should return 30 3-6, mixed order', function() {
+		$scope.view.tossResult = [ 4, 5, 3, 6, 3 ];
+		$scope.view.checkSmS( 'player1' );
+		expect( $scope.view.player1.SmS ).to.equal( 30 );
+	} )
+	it( 'should return 0 no small straight', function() {
+		$scope.view.tossResult = [ 1, 1, 1, 1, 1 ];
+		$scope.view.checkSmS( 'player2' );
+		expect( $scope.view.player2.SmS ).to.equal( 0 );
+	} )
+	it( 'should return 0, just small for the small straight', function() {
+		$scope.view.tossResult = [ 1, 2, 3, 5, 6 ];
+		$scope.view.checkSmS( 'player1' );
+		expect( $scope.view.player1.SmS ).to.equal( 0 );
+	} )
+	it( 'should still return 0 regardless of order of numbers', function() {
+		$scope.view.tossResult = [ 2, 3, 1, 6, 5 ];
+		$scope.view.checkSmS( 'player2' );
+		expect( $scope.view.player2.SmS ).to.equal( 0 );
+	} )
+} )
+describe( 'Testing checkLgS (LgS for consistancy because bill is a kill joy)', function() {
+	it( 'should return 40 1-5', function() {
+		$scope.view.tossResult = [ 1, 2, 3, 4, 5 ];
+		$scope.view.checkLgS( 'player1' );
+		expect( $scope.view.player1.LgS ).to.equal( 40 );
+	} )
+	it( 'should return 40 1-5 mixed order', function() {
+		$scope.view.tossResult = [ 3, 2, 5, 1, 4 ];
+		$scope.view.checkLgS( 'player1' );
+		expect( $scope.view.player1.LgS ).to.equal( 40 );
+	} )
+	it( 'should return 40 2-6', function() {
+		$scope.view.tossResult = [ 2, 3, 4, 5, 6 ];
+		$scope.view.checkLgS( 'player2' );
+		expect( $scope.view.player2.LgS ).to.equal( 40 );
+	} )
+	it( 'should return 40 2-6 mixed order', function() {
+		$scope.view.tossResult = [ 6, 3, 4, 2, 5 ];
+		$scope.view.checkLgS( 'player2' );
+		expect( $scope.view.player2.LgS ).to.equal( 40 );
+	} )
+	it( 'should return 0, no LgS', function() {
+		$scope.view.tossResult = [ 1, 2, 3, 4, 6 ];
+		$scope.view.checkLgS( 'player1' );
+		expect( $scope.view.player1.LgS ).to.equal( 0 );
+	} )
+	it( 'should return 0, yahtzee is not a large straight', function() {
+		$scope.view.tossResult = [ 1, 1, 1, 1, 1 ];
+		$scope.view.checkLgS( 'player1' );
+		expect( $scope.view.player1.LgS ).to.equal( 0 );
+	} )
+} )
+describe( 'Testing checkYahtzee', function() {
+	it( 'should return 50', function() {
+		$scope.view.tossResult = [ 1, 1, 1, 1, 1 ];
+		$scope.view.checkYahtzee( 'player1' );
+		expect( $scope.view.player1.yahtzee ).to.equal( 50 );
+	} )
+	it( 'should not return 50 (return 0)', function() {
+		$scope.view.tossResult = [ 1, 1, 1, 1, 4 ];
+		$scope.view.checkYahtzee( 'player2' );
+		expect( $scope.view.player2.yahtzee ).to.equal( 0 );
+	} )
+} )
+describe( 'Testing checkBonus', function() {
+	it( 'should return 100 (second yahtzee)', function() {
+		$scope.view.player1.yahtzee = 50;
+		$scope.view.tossResult = [ 1, 1, 1, 1, 1 ];
+		$scope.view.checkBonus( 'player1' );
+		expect( $scope.view.player1.bonus ).to.equal( 100 );
+	} )
+	it( 'should return 200 (third yahtzee)', function() {
+		$scope.view.player1.yahtzee = 50;
+		$scope.view.player1.bonus = 100;
+		$scope.tossResult = [ 1, 1, 1, 1, 1 ];
+		$scope.view.checkBonus( 'player1' );
+		expect( $scope.view.player1.bonus ).to.equal( 200 );
+	} )
+} )
+describe( 'Testing checkChance', function() {
+	it( 'should return 12', function() {
+		$scope.view.tossResult = [ 1, 3, 4, 2, 2 ];
+		$scope.view.checkChance( "player1" );
+		expect( $scope.view.player1.chance ).to.equal( 12 );
+	} )
+} );
