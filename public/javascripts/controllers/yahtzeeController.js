@@ -77,6 +77,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		var ref = firebase.database().ref().child("view");
 		$scope.view.player1.usedTwos = false;
 		var obj = $firebaseObject(ref);
+		obj.rollsLeft=3;
 		obj.turn=1;
 		obj.player1={};
 		obj.player2={};
@@ -241,7 +242,8 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		} else if ($scope.view.turn >= 26 && $scope.view.player1.grandtotal < $scope.view.player2.grandtotal) {
 			alert("Game Over! Player 2 Wins by a score of " + $scope.view.player2.grandtotal + " to " + $scope.view.player1.grandtotal);
 		}
-		
+		$scope.view.rollsLeft = 3;
+
 	};
 } ] );
 
