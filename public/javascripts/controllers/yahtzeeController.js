@@ -30,7 +30,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	// var ref = firebase.database().ref().child( "player1" );
 	// 	$firebaseObject( ref ).$bindTo( $scope, "view.player1" );
 	// 	var ref2 = firebase.database().ref().child( "player2" );
-	// 	$firebaseObject( ref2 ).$bindTo( $scope, "view.player2" );
+	//$firebaseObject( ref2 ).$bindTo( $scope, "view.player2" );
 	var ref3 = firebase.database().ref().child( "view" );
 	$firebaseObject( ref3 ).$bindTo( $scope, "view" );
 	$scope.view = {};
@@ -72,6 +72,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.view.player2.yahtzeebonus = 0;
 	$scope.view.player2.lowertotal = $scope.view.player2.K3 + $scope.view.player2.K4 + $scope.view.player2.FH + $scope.view.player2.SmS + $scope.view.player2.LgS + $scope.view.player2.yahtzee + $scope.view.player2.chance + $scope.view.player2.yahtzeebonus;
 	$scope.view.player2.grandtotal = $scope.view.player2.uppertotal + $scope.view.player2.lowertotal;
+	$scope.view.rollsLeft = 3;
 	$scope.initGame = function() {
 
 		var ref = firebase.database().ref().child( "view" );
@@ -112,6 +113,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		obj.player2.upperbonus = 0;
 		obj.player2.lowertotal = 0;
 		obj.player2.uppertotal = 0;
+		obj.rollsLeft = 3;
 		obj.$save().then( function( ref ) {
 			ref.key === obj.$id;
 		} );
