@@ -1,4 +1,4 @@
-<main class="container-fluid ">
+<main class="container-fluid " ng-init="initGame()">
 	<section>
 		<div class="row">
 			<div class="col-xs-12">
@@ -48,42 +48,42 @@
 					<td>HOW TO SCORE</td>
 					<td>GAME SCORE</td>
 				</tr>
-				<tr ng-click=" view.player1.aces=view.player1.aces+1; updateP1UpperSubScore();">
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+				<tr>
+					<td><button ng-click="checkNumber(1, 'aces', 'player1')" ng-disabled="view.player1.acesUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 					<td>Aces: 1</td>
 					<td>Count and Add Only Aces</td>
 					<td>{{view.player1.aces}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(2, 'twos', 'player1')">
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+				<tr>
+					<td><button ng-click="checkNumber(2, 'twos', 'player1')" ng-disabled="view.player1.twosUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>Twos: 2</td>
 					<td>Count and Add Only Twos</td>
 					<td>{{view.player1.twos}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(3, 'threes', 'player1')">
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+				<tr>
+					<td><button class="rollbtn" ng-click="checkNumber(3, 'threes', 'player1')" ng-disabled="view.player1.threesUsed || view.turn % 2 === 0" type="button" name="button">SCORE!</button></td>
 
 					<td>Threes: 3</td>
 					<td>Count and Add Only Threes</td>
 					<td>{{view.player1.threes}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(4, 'fours', 'player1')">
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+				<tr>
+					<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player1.foursUsed || view.turn % 2 === 0" ng-click="checkNumber(4, 'fours', 'player1')">SCORE!</button></td>
 
 					<td>Fours: 4</td>
 					<td>Count and Add Only Fours</td>
 					<td>{{view.player1.fours}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(5, 'fives', 'player1')">
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+				<tr>
+					<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player1.fivesUsed || view.turn % 2 === 0" ng-click="checkNumber(5, 'fives', 'player1')">SCORE!</button></td>
 
 					<td>Fives: 5</td>
 					<td>Count and Add Only Fives</td>
 					<td>{{view.player1.fives}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(6, 'sixes', 'player1')">
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+				<tr>
+					<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player1.sixesUsed || view.turn % 2 === 0" ng-click="checkNumber(6, 'sixes', 'player1')">SCORE!</button></td>
 
 					<td>Sixes: 6</td>
 					<td>Count and Add Only Sixes</td>
@@ -100,7 +100,7 @@
 					<td></td>
 
 					<td>If total Score is 63+</td>
-					<td>35</td>
+					<td>{{view.player1.upperbonus}}</td>
 				</tr>
 				<tr class="total">
 					<td>TOTAL</td>
@@ -115,21 +115,21 @@
 										<td></td>
 				</tr>
 				<tr>
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+					<td><button ng-click="checkK3('player1')" ng-disabled="view.player1.K3Used || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>3 of a kind</td>
 					<td>Add Total of All Dice</td>
 					<td>{{view.player1.K3}}</td>
 				</tr>
 				<tr>
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+					<td><button ng-click="checkK4('player1')" ng-disabled="view.player1.K4Used || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>4 of a kind</td>
 					<td>Add Total of All Dice</td>
 					<td>{{view.player1.K4}}</td>
 				</tr>
 				<tr>
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+					<td><button ng-click="checkFH('player1')" ng-disabled="view.player1.FHUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>Full House</td>
 					<td>Score: 25</td>
@@ -137,35 +137,35 @@
 				</tr>
 				<tr>
 
-				<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+				<td><button ng-click="checkSmS('player1')" ng-disabled="view.player1.SmSUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 				<td>Small Straight (4)</td>
 				<td>Score: 30</td>
 				<td>{{view.player1.SmS}}</td>
 			</tr>
 				<tr>
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+					<td><button ng-click="checkLgS('player1')" ng-disabled="view.player1.LgSUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>Large Straight (5)</td>
 					<td>Score: 40</td>
 					<td>{{view.player1.LgS}}</td>
 				</tr>
 				<tr>
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+					<td><button ng-click="checkyahtzee('player1')" ng-disabled="view.player1.yahtzeeUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>YAHTZEE!</td>
 					<td>Score: 50</td>
 					<td>{{view.player1.yahtzee}}</td>
 				</tr>
 				<tr>
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+					<td><button ng-click="checkchance('player1')" ng-disabled="view.player1.chanceUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>Chance</td>
 					<td>Score Total of All 5 Dice</td>
 					<td>{{view.player1.chance}}</td>
 				</tr>
 				<tr>
-					<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+					<td><button ng-click="checkBonus('player1')" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>YAHTZEE BONUS!</td>
 					<td>100 Per Bonus</td>
@@ -200,43 +200,43 @@
 								<td>HOW TO SCORE</td>
 								<td>GAME SCORE</td>
 							</tr>
-							<tr ng-click="view.checkNumber(1, 'aces', 'player2')">
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+							<tr>
+								<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player2.acesUsed || view.turn % 2 !== 0" ng-click="checkNumber(1, 'aces', 'player2')">SCORE!</button></td>
 
 								<td>Aces: 1</td>
 								<td>Count and Add Only Aces</td>
 								<td>{{view.player2.aces}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(2, 'twos', 'player2')">
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+							<tr>
+								<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player2.twosUsed || view.turn % 2 !== 0" ng-click="checkNumber(2, 'twos', 'player2')">SCORE!</button></td>
 
 								<td>Twos: 2</td>
 								<td>Count and Add Only Twos</td>
 								<td>{{view.player2.twos}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(3, 'threes', 'player2')">
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+							<tr>
+								<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player2.threesUsed || view.turn % 2 !== 0" ng-click="checkNumber(3, 'threes', 'player2')">SCORE!</button></td>
 
 								<td>Threes: 3</td>
 								<td>Count and Add Only Threes</td>
 								<td>{{view.player2.threes}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(4, 'fours', 'player2')">
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+							<tr>
+								<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player2.foursUsed || view.turn % 2 !== 0" ng-click="checkNumber(4, 'fours', 'player2')">SCORE!</button></td>
 
 								<td>Fours: 4</td>
 								<td>Count and Add Only Fours</td>
 								<td>{{view.player2.fours}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(5, 'fives', 'player2')">
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+							<tr>
+								<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player2.fivesUsed || view.turn % 2 !== 0" ng-click="checkNumber(5, 'fives', 'player2')">SCORE!</button></td>
 
 								<td>Fives: 5</td>
 								<td>Count and Add Only Fives</td>
 								<td>{{view.player2.fives}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(6, 'sixes', 'player2')">
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+							<tr>
+								<td><button class="rollbtn" type="button" name="button" ng-disabled="view.player2.sixesUsed || view.turn % 2 !== 0" ng-click="checkNumber(6, 'sixes', 'player2')">SCORE!</button></td>
 
 								<td>Sixes: 6</td>
 								<td>Count and Add Only Sixes</td>
@@ -253,7 +253,7 @@
 								<td></td>
 
 								<td>If total Score is 63+</td>
-								<td>35</td>
+								<td>{{view.player2.upperbonus}}</td>
 							</tr>
 							<tr class="total">
 								<td>TOTAL</td>
@@ -269,21 +269,21 @@
 								<td ></td>
 							</tr>
 							<tr>
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+								<td><button ng-click="checkK3('player2')" ng-disabled="view.player2.K3Used || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 								<td>3 of a kind</td>
 								<td>Add Total of All Dice</td>
 								<td>{{view.player2.K3}}</td>
 							</tr>
 							<tr>
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+								<td><button ng-click="checkK4('player2')" ng-disabled="view.player2.K4Used || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 								<td>4 of a kind</td>
 								<td>Add Total of All Dice</td>
 								<td>{{view.player2.K4}}</td>
 							</tr>
 							<tr>
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+								<td><button ng-click="checkFH('player2')" ng-disabled="view.player2.FHUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 								<td>Full House</td>
 								<td>Score: 25</td>
@@ -291,35 +291,35 @@
 							</tr>
 							<tr>
 
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+								<td><button ng-click="checkSmS('player2')" ng-disabled="view.player2.SmSUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 							<td>Small Straight (4)</td>
 							<td>Score: 30</td>
 							<td>{{view.player2.SmS}}</td>
 						</tr>
 							<tr>
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+								<td><button ng-click="checkLgS('player2')" ng-disabled="view.player2.LgSUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 								<td>Large Straight (5)</td>
 								<td>Score: 40</td>
 								<td>{{view.player2.LgS}}</td>
 							</tr>
 							<tr>
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+								<td><button ng-click="checkyahtzee('player2')" ng-disabled="view.player2.yahtzeeUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 								<td>YAHTZEE!</td>
 								<td>Score: 50</td>
 								<td>{{view.player2.yahtzee}}</td>
 							</tr>
 							<tr>
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+								<td><button ng-click="checkchance('player2')" ng-disabled="view.player2.chanceUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 								<td>Chance</td>
 								<td>Score Total of All 5 Dice</td>
 								<td>{{view.player2.chance}}</td>
 							</tr>
 							<tr>
-								<td><button class="rollbtn"type="button" name="button">SCORE!</button></td>
+								<td><button ng-click="checkBonus('player2')" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 								<td>YAHTZEE BONUS!</td>
 								<td>100 Per Bonus</td>
