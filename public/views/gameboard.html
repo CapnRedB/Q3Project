@@ -9,13 +9,17 @@
 										</div>
 
 	</section>
-
 	<div class="container-fluid backdrop">
+		<div class="row">
+		<div class="rollsleft dicecenter">
+			Rolls Left: {{view.rollsLeft}}
+		</div>
+				</div>
 		<div class="row">
 			<div class="dicecenter">
 				<div ng-repeat="die in view.viewResult track by $index">
 			<div class="col-xs-1">
-				<img class="dice" src="../img/{{die}}.png" alt="" />
+				<img class="dice" ng-class="{'held': helddicearray.includes($index)}" id="{{'die'+$index}}" src="../img/{{die}}.png" ng-click="toggleHoldDie($index)" alt="" />
 				</div>
 		</div>
 			<!-- <div class="col-xs-1">
@@ -116,27 +120,23 @@
 				</tr>
 				<tr>
 					<td><button ng-click="checkK3('player1')" ng-disabled="view.player1.K3Used || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 					<td>3 of a kind</td>
 					<td>Add Total of All Dice</td>
 					<td>{{view.player1.K3}}</td>
 				</tr>
 				<tr>
 					<td><button ng-click="checkK4('player1')" ng-disabled="view.player1.K4Used || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 					<td>4 of a kind</td>
 					<td>Add Total of All Dice</td>
 					<td>{{view.player1.K4}}</td>
 				</tr>
 				<tr>
 					<td><button ng-click="checkFH('player1')" ng-disabled="view.player1.FHUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 					<td>Full House</td>
 					<td>Score: 25</td>
 					<td>{{view.player1.FH}}</td>
 				</tr>
 				<tr>
-
 				<td><button ng-click="checkSmS('player1')" ng-disabled="view.player1.SmSUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 				<td>Small Straight (4)</td>
@@ -145,12 +145,12 @@
 			</tr>
 				<tr>
 					<td><button ng-click="checkLgS('player1')" ng-disabled="view.player1.LgSUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 					<td>Large Straight (5)</td>
 					<td>Score: 40</td>
 					<td>{{view.player1.LgS}}</td>
 				</tr>
 				<tr>
+
 					<td><button ng-click="checkyahtzee('player1')" ng-disabled="view.player1.yahtzeeUsed || view.turn % 2 === 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
 
 					<td>YAHTZEE!</td>
@@ -270,57 +270,48 @@
 							</tr>
 							<tr>
 								<td><button ng-click="checkK3('player2')" ng-disabled="view.player2.K3Used || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 								<td>3 of a kind</td>
 								<td>Add Total of All Dice</td>
 								<td>{{view.player2.K3}}</td>
 							</tr>
 							<tr>
 								<td><button ng-click="checkK4('player2')" ng-disabled="view.player2.K4Used || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 								<td>4 of a kind</td>
 								<td>Add Total of All Dice</td>
 								<td>{{view.player2.K4}}</td>
 							</tr>
 							<tr>
 								<td><button ng-click="checkFH('player2')" ng-disabled="view.player2.FHUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 								<td>Full House</td>
 								<td>Score: 25</td>
 								<td>{{view.player2.FH}}</td>
 							</tr>
 							<tr>
-
 								<td><button ng-click="checkSmS('player2')" ng-disabled="view.player2.SmSUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 							<td>Small Straight (4)</td>
 							<td>Score: 30</td>
 							<td>{{view.player2.SmS}}</td>
 						</tr>
 							<tr>
 								<td><button ng-click="checkLgS('player2')" ng-disabled="view.player2.LgSUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 								<td>Large Straight (5)</td>
 								<td>Score: 40</td>
 								<td>{{view.player2.LgS}}</td>
 							</tr>
 							<tr>
 								<td><button ng-click="checkyahtzee('player2')" ng-disabled="view.player2.yahtzeeUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 								<td>YAHTZEE!</td>
 								<td>Score: 50</td>
 								<td>{{view.player2.yahtzee}}</td>
 							</tr>
 							<tr>
 								<td><button ng-click="checkchance('player2')" ng-disabled="view.player2.chanceUsed || view.turn % 2 !== 0" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 								<td>Chance</td>
 								<td>Score Total of All 5 Dice</td>
 								<td>{{view.player2.chance}}</td>
 							</tr>
 							<tr>
 								<td><button ng-click="checkBonus('player2')" class="rollbtn" type="button" name="button">SCORE!</button></td>
-
 								<td>YAHTZEE BONUS!</td>
 								<td>100 Per Bonus</td>
 								<td>{{view.player2.yahtzeebonus}}</td>

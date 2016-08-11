@@ -30,12 +30,18 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	// var ref = firebase.database().ref().child( "player1" );
 	// 	$firebaseObject( ref ).$bindTo( $scope, "view.player1" );
 	// 	var ref2 = firebase.database().ref().child( "player2" );
-	// 	$firebaseObject( ref2 ).$bindTo( $scope, "view.player2" );
+	//$firebaseObject( ref2 ).$bindTo( $scope, "view.player2" );
 	var ref3 = firebase.database().ref().child( "view" );
 	$firebaseObject( ref3 ).$bindTo( $scope, "view" );
 	$scope.view = {};
 	$scope.view.player1 = {};
 	$scope.view.player2 = {};
+	$scope.die0Held = false;
+	$scope.die1Held = false;
+	$scope.die2Held = false;
+	$scope.die3Held = false;
+	$scope.die4Held = false;
+	$scope.helddicearray = [];
 	$scope.view.player1.aces = 0;
 	$scope.view.player1.twos = 0;
 	$scope.view.player1.threes = 0;
@@ -72,9 +78,10 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.view.player2.yahtzeebonus = 0;
 	$scope.view.player2.lowertotal = $scope.view.player2.K3 + $scope.view.player2.K4 + $scope.view.player2.FH + $scope.view.player2.SmS + $scope.view.player2.LgS + $scope.view.player2.yahtzee + $scope.view.player2.chance + $scope.view.player2.yahtzeebonus;
 	$scope.view.player2.grandtotal = $scope.view.player2.uppertotal + $scope.view.player2.lowertotal;
-	$scope.initGame = function(){
+	$scope.view.rollsLeft = 3;
+	$scope.initGame = function() {
 
-		var ref = firebase.database().ref().child("view");
+		var ref = firebase.database().ref().child( "view" );
 		$scope.view.player1.usedTwos = false;
 		var obj = $firebaseObject(ref);
 		obj.rollsLeft=3;
@@ -120,38 +127,45 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.tossResult = [];
 	$scope.view.viewResult = "";
 	$scope.roll = function() {
-		var result = "";
-		var resultArray = [];
-		for ( var i = 0; i < 5; i++ ) {
-			var num = Math.ceil( Math.random() * 6 );
-			result += "" + num;
-			resultArray.push(num);
+		if ($scope.view.rollsLeft > 0) {
+			var result = "";
+			for ( var i = 0; i < 5; i++ ) {
+				if(!$scope.helddicearray.includes(i)){
+
+
+				var num = Math.ceil( Math.random() * 6 );
+					$scope.tossResult[i]=num;
+				}
+			}
+			$scope.view.rollsLeft--;
+			$scope.view.viewResult = $scope.tossResult.join('');
+			// $scope.tossResult = resultArray;
+		} else {
+			alert("You are out of rolls this turn!");
 		}
-		$scope.view.viewResult = result;
-		$scope.tossResult = resultArray;
 	};
-	$scope.updateUpperSubScore = function(player) {
+	$scope.updateUpperSubScore = function( player ) {
 		console.log( "fuck" );
-		$scope.view[player].uppersubtotal = $scope.view[player].aces + $scope.view[player].twos + $scope.view[player].threes + $scope.view[player].fours + $scope.view[player].fives + $scope.view[player].sixes;
-		$scope.checkUpperBonus(player);
+		$scope.view[ player ].uppersubtotal = $scope.view[ player ].aces + $scope.view[ player ].twos + $scope.view[ player ].threes + $scope.view[ player ].fours + $scope.view[ player ].fives + $scope.view[ player ].sixes;
+		$scope.checkUpperBonus( player );
 	};
-	$scope.checkUpperBonus = function(player){
-		if ($scope.view[player].uppersubtotal >= 63) {
-			$scope.view[player].upperbonus = 35;
+	$scope.checkUpperBonus = function( player ) {
+		if ( $scope.view[ player ].uppersubtotal >= 63 ) {
+			$scope.view[ player ].upperbonus = 35;
 		}
-		$scope.updateUpperScore(player);
+		$scope.updateUpperScore( player );
 	};
-	$scope.updateUpperScore = function(player) {
-		$scope.view[player].uppertotal = $scope.view[player].uppersubtotal + $scope.view[player].upperbonus;
-		$scope.updateGrandTotal(player);
+	$scope.updateUpperScore = function( player ) {
+		$scope.view[ player ].uppertotal = $scope.view[ player ].uppersubtotal + $scope.view[ player ].upperbonus;
+		$scope.updateGrandTotal( player );
 	};
-	$scope.updateGrandTotal = function(player){
-		$scope.view[player].grandtotal = $scope.view[player].uppertotal + $scope.view[player].lowertotal;
-		$scope.buttonClicked(player);
+	$scope.updateGrandTotal = function( player ) {
+		$scope.view[ player ].grandtotal = $scope.view[ player ].uppertotal + $scope.view[ player ].lowertotal;
+		$scope.buttonClicked( player );
 	};
-	$scope.updateLowerScore = function(player){
-		$scope.view[player].lowertotal = $scope.view[player].K3 + $scope.view[player].K4 + $scope.view[player].FH + $scope.view[player].SmS + $scope.view[player].LgS + $scope.view[player].yahtzee + $scope.view[player].chance;
-		$scope.updateGrandTotal(player);
+	$scope.updateLowerScore = function( player ) {
+		$scope.view[ player ].lowertotal = $scope.view[ player ].K3 + $scope.view[ player ].K4 + $scope.view[ player ].FH + $scope.view[ player ].SmS + $scope.view[ player ].LgS + $scope.view[ player ].yahtzee + $scope.view[ player ].chance;
+		$scope.updateGrandTotal( player );
 	};
 	$scope.checkNumber = function( num, score, player ) {
 		var count = 0;
@@ -161,9 +175,9 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 			}
 		}
 		$scope.view[ player ][ score ] = count * num;
-		$scope.updateUpperSubScore(player);
+		$scope.updateUpperSubScore( player );
 		var buttonToToggle = score + "Used";
-		$scope.view[player][buttonToToggle] = true;
+		$scope.view[ player ][ buttonToToggle ] = true;
 	};
 
 	$scope.checkK3 = function( player ) {
@@ -173,30 +187,30 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		} else {
 			$scope.view[ player ].K3 = 0;
 		}
-		$scope.view[player].K3Used = true;
-		$scope.updateLowerScore(player);
+		$scope.view[ player ].K3Used = true;
+		$scope.updateLowerScore( player );
 	};
 	$scope.checkK4 = function( player ) {
-		console.log($scope.tossResult);
+		console.log( $scope.tossResult );
 		var resultSorted = $scope.tossResult.sort();
 		if ( ( resultSorted[ 0 ] === resultSorted[ 1 ] && resultSorted[ 0 ] === resultSorted[ 2 ] && resultSorted[ 0 ] === resultSorted[ 3 ] ) || ( resultSorted[ 1 ] === resultSorted[ 2 ] && resultSorted[ 1 ] === resultSorted[ 3 ] && resultSorted[ 1 ] === resultSorted[ 4 ] ) ) {
 			$scope.view[ player ].K4 = $scope.tossResult[ 0 ] + $scope.tossResult[ 1 ] + $scope.tossResult[ 2 ] + $scope.tossResult[ 3 ] + $scope.tossResult[ 4 ];
 		} else {
 			$scope.view[ player ].K4 = 0;
 		}
-		$scope.view[player].K4Used = true;
-		$scope.updateLowerScore(player);
+		$scope.view[ player ].K4Used = true;
+		$scope.updateLowerScore( player );
 	};
 	$scope.checkFH = function( player ) {
-		console.log($scope.tossResult);
+		console.log( $scope.tossResult );
 		var resultSorted = $scope.tossResult.sort();
 		if ( ( resultSorted[ 0 ] === resultSorted[ 1 ] && resultSorted[ 2 ] === resultSorted[ 3 ] && resultSorted[ 2 ] === resultSorted[ 4 ] ) || ( resultSorted[ 0 ] === resultSorted[ 1 ] && resultSorted[ 0 ] === resultSorted[ 2 ] && resultSorted[ 3 ] === resultSorted[ 4 ] ) ) {
 			$scope.view[ player ].FH = 25;
 		} else {
 			$scope.view[ player ].FH = 0;
 		}
-		$scope.view[player].FHUsed = true;
-		$scope.updateLowerScore(player);
+		$scope.view[ player ].FHUsed = true;
+		$scope.updateLowerScore( player );
 	};
 	$scope.checkSmS = function( player ) {
 		var resultSorted = $scope.tossResult.sort();
@@ -205,8 +219,8 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		} else {
 			$scope.view[ player ].SmS = 0;
 		}
-		$scope.view[player].SmSUsed = true;
-		$scope.updateLowerScore(player);
+		$scope.view[ player ].SmSUsed = true;
+		$scope.updateLowerScore( player );
 	};
 	$scope.checkLgS = function( player ) {
 		var resultSorted = $scope.tossResult.sort();
@@ -215,8 +229,8 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		} else {
 			$scope.view[ player ].LgS = 0;
 		}
-		$scope.view[player].LgSUsed = true;
-		$scope.updateLowerScore(player);
+		$scope.view[ player ].LgSUsed = true;
+		$scope.updateLowerScore( player );
 	};
 	$scope.checkyahtzee = function( player ) {
 		if ( $scope.tossResult[ 0 ] === $scope.tossResult[ 1 ] && $scope.tossResult[ 0 ] === $scope.tossResult[ 2 ] && $scope.tossResult[ 0 ] === $scope.tossResult[ 3 ] && $scope.tossResult[ 0 ] === $scope.tossResult[ 4 ] ) {
@@ -224,26 +238,37 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		} else {
 			$scope.view[ player ].yahtzee = 0;
 		}
-		$scope.view[player].yahtzeeUsed = true;
-		$scope.updateLowerScore(player);
+		$scope.view[ player ].yahtzeeUsed = true;
+		$scope.updateLowerScore( player );
 	};
 	$scope.checkchance = function( player ) {
-		console.log($scope.tossResult);
+		console.log( $scope.tossResult );
 		$scope.view[ player ].chance = $scope.tossResult[ 0 ] + $scope.tossResult[ 1 ] + $scope.tossResult[ 2 ] + $scope.tossResult[ 3 ] + $scope.tossResult[ 4 ];
-		$scope.view[player].chanceUsed = true;
-		$scope.updateLowerScore(player);
+		$scope.view[ player ].chanceUsed = true;
+		$scope.updateLowerScore( player );
 	};
-	$scope.buttonClicked = function(){
+	$scope.buttonClicked = function() {
 		$scope.view.turn++;
-		if ($scope.view.turn >= 26 && $scope.view.player1.grandtotal > $scope.view.player2.grandtotal) {
-			alert("Game Over! Player 1 Wins by a score of " + $scope.view.player1.grandtotal + " to " + $scope.view.player2.grandtotal);
-		} else if ($scope.view.turn >= 26 && $scope.view.player1.grandtotal === $scope.view.player2.grandtotal) {
-			alert("Game Over! You tied!");
-		} else if ($scope.view.turn >= 26 && $scope.view.player1.grandtotal < $scope.view.player2.grandtotal) {
-			alert("Game Over! Player 2 Wins by a score of " + $scope.view.player2.grandtotal + " to " + $scope.view.player1.grandtotal);
+		if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal > $scope.view.player2.grandtotal ) {
+			alert( "Game Over! Player 1 Wins by a score of " + $scope.view.player1.grandtotal + " to " + $scope.view.player2.grandtotal );
+		} else if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal === $scope.view.player2.grandtotal ) {
+			alert( "Game Over! You tied!" );
+		} else if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal < $scope.view.player2.grandtotal ) {
+			alert( "Game Over! Player 2 Wins by a score of " + $scope.view.player2.grandtotal + " to " + $scope.view.player1.grandtotal );
 		}
 		$scope.view.rollsLeft = 3;
-
+		$scope.tossResult = [];
+		$scope.view.viewResult = "";
+		$scope.helddicearray = [];
+	};
+	$scope.toggleHoldDie = function(index){
+		if ($scope.helddicearray.includes(index)){
+			var indexToCut = $scope.helddicearray.indexOf(index);
+			$scope.helddicearray.splice(indexToCut, 1);
+		} else {
+			$scope.helddicearray.push(index);
+		}
+		console.log($scope.helddicearray);
 	};
 } ] );
 
