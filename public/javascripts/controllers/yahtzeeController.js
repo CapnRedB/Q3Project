@@ -142,14 +142,21 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 			$scope.view[ player ].LgS = 0;
 		}
 	};
-	$scope.view.checkyahtzee = function( player ) {
+	$scope.view.checkYahtzee = function( player ) {
 		if ( tossResult[ 0 ] === tossResult[ 1 ] && tossResult[ 0 ] === tossResult[ 2 ] && tossResult[ 0 ] === tossResult[ 3 ] && tossResult[ 0 ] === tossResult[ 4 ] ) {
 			$scope.view[ player ].yahtzee = 50;
 		} else {
 			$scope.view[ player ].yahtzee = 0;
 		}
 	};
-	$scope.view.checkchance = function( player ) {
+	$scope.view.checkBonus = function( player ) {
+		if ( ( tossResult[ 0 ] === tossResult[ 1 ] && tossResult[ 0 ] === tossResult[ 2 ] && tossResult[ 0 ] === tossResult[ 3 ] && tossResult[ 0 ] === tossResult[ 4 ] ) && ( $scope.view[ player ].yahtzee === 50 ) ) {
+			$scope.view[ player ].bonus += 100;
+		} else {
+			alert( 'You do not have any yahtzees yet!' );
+		}
+	};
+	$scope.view.checkChance = function( player ) {
 		$scope.view[ player ].chance = tossResult[ 0 ] + tossResult[ 1 ] + tossResult[ 2 ] + tossResult[ 3 ] + tossResult[ 4 ];
 	};
 } ] );
