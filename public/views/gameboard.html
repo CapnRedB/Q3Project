@@ -47,32 +47,32 @@
 					<td>HOW TO SCORE</td>
 					<td>GAME SCORE</td>
 				</tr>
-				<tr ng-click=" view.player1.aces=view.player1.aces+1; updateP1UpperSubScore();">
+				<tr ng-click="checkNumber(1, 'aces', 'player1')">
 					<td>Aces: 1</td>
 					<td>Count and Add Only Aces</td>
 					<td>{{view.player1.aces}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(2, 'twos', 'player1')">
+				<tr ng-click="checkNumber(2, 'twos', 'player1')">
 					<td>Twos: 2</td>
 					<td>Count and Add Only Twos</td>
 					<td>{{view.player1.twos}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(3, 'threes', 'player1')">
+				<tr ng-click="checkNumber(3, 'threes', 'player1')">
 					<td>Threes: 3</td>
 					<td>Count and Add Only Threes</td>
 					<td>{{view.player1.threes}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(4, 'fours', 'player1')">
+				<tr ng-click="checkNumber(4, 'fours', 'player1')">
 					<td>Fours: 4</td>
 					<td>Count and Add Only Fours</td>
 					<td>{{view.player1.fours}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(5, 'fives', 'player1')">
+				<tr ng-click="checkNumber(5, 'fives', 'player1')">
 					<td>Fives: 5</td>
 					<td>Count and Add Only Fives</td>
 					<td>{{view.player1.fives}}</td>
 				</tr>
-				<tr ng-click="view.checkNumber(6, 'sixes', 'player1')">
+				<tr ng-click="checkNumber(6, 'sixes', 'player1')">
 					<td>Sixes: 6</td>
 					<td>Count and Add Only Sixes</td>
 					<td>{{view.player1.sixes}}</td>
@@ -85,7 +85,7 @@
 				<tr>
 					<td>BONUS!</td>
 					<td>If total Score is 63+</td>
-					<td>35</td>
+					<td>{{view.player1.upperbonus}}</td>
 				</tr>
 				<tr class="total">
 					<td>TOTAL</td>
@@ -97,35 +97,37 @@
 					<td ></td>
 					<td ></td>
 				</tr>
-				<tr>
+				<tr ng-click="checkK3('player1')">
 					<td>3 of a kind</td>
 					<td>Add Total of All Dice</td>
 					<td>{{view.player1.K3}}</td>
 				</tr>
-				<tr>
+				<tr ng-click="checkK4('player1')">
 					<td>4 of a kind</td>
 					<td>Add Total of All Dice</td>
 					<td>{{view.player1.K4}}</td>
 				</tr>
-				<tr>
+				<tr ng-click="checkFH('player1')">
 					<td>Full House</td>
 					<td>Score: 25</td>
 					<td>{{view.player1.FH}}</td>
 				</tr>
-				<td>Small Straight (4)</td>
-				<td>Score: 30</td>
-				<td>{{view.player1.SmS}}</td>
-				<tr>
+				<tr ng-click="checkSmS('player1')">
+					<td>Small Straight (4)</td>
+					<td>Score: 30</td>
+					<td>{{view.player1.SmS}}</td>
+				</tr>
+				<tr ng-click="checkLgS('player1')">
 					<td>Large Straight (5)</td>
 					<td>Score: 40</td>
 					<td>{{view.player1.LgS}}</td>
 				</tr>
-				<tr>
+				<tr ng-click="checkyahtzee('player1')">
 					<td>YAHTZEE!</td>
 					<td>Score: 50</td>
 					<td>{{view.player1.yahtzee}}</td>
 				</tr>
-				<tr>
+				<tr ng-click="checkchance('player1')">
 					<td>Chance</td>
 					<td>Score Total of All 5 Dice</td>
 					<td>{{view.player1.chance}}</td>
@@ -159,32 +161,32 @@
 								<td>HOW TO SCORE</td>
 								<td>GAME SCORE</td>
 							</tr>
-							<tr ng-click="view.checkNumber(1, 'aces', 'player2')">
+							<tr ng-click="checkNumber(1, 'aces', 'player2')">
 								<td>Aces: 1</td>
 								<td>Count and Add Only Aces</td>
 								<td>{{view.player2.aces}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(2, 'twos', 'player2')">
+							<tr ng-click="checkNumber(2, 'twos', 'player2')">
 								<td>Twos: 2</td>
 								<td>Count and Add Only Twos</td>
 								<td>{{view.player2.twos}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(3, 'threes', 'player2')">
+							<tr ng-click="checkNumber(3, 'threes', 'player2')">
 								<td>Threes: 3</td>
 								<td>Count and Add Only Threes</td>
 								<td>{{view.player2.threes}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(4, 'fours', 'player2')">
+							<tr ng-click="checkNumber(4, 'fours', 'player2')">
 								<td>Fours: 4</td>
 								<td>Count and Add Only Fours</td>
 								<td>{{view.player2.fours}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(5, 'fives', 'player2')">
+							<tr ng-click="checkNumber(5, 'fives', 'player2')">
 								<td>Fives: 5</td>
 								<td>Count and Add Only Fives</td>
 								<td>{{view.player2.fives}}</td>
 							</tr>
-							<tr ng-click="view.checkNumber(6, 'sixes', 'player2')">
+							<tr ng-click="checkNumber(6, 'sixes', 'player2')">
 								<td>Sixes: 6</td>
 								<td>Count and Add Only Sixes</td>
 								<td>{{view.player2.sixes}}</td>
@@ -197,7 +199,7 @@
 							<tr>
 								<td>BONUS!</td>
 								<td>If total Score is 63+</td>
-								<td>35</td>
+								<td>{{view.player2.upperbonus}}</td>
 							</tr>
 							<tr class="total">
 								<td>TOTAL</td>
@@ -209,35 +211,37 @@
 								<td ></td>
 								<td ></td>
 							</tr>
-							<tr>
+							<tr ng-click="checkK3('player2')">
 								<td>3 of a kind</td>
 								<td>Add Total of All Dice</td>
 								<td>{{view.player2.K3}}</td>
 							</tr>
-							<tr>
+							<tr ng-click="checkK4('player2')">
 								<td>4 of a kind</td>
 								<td>Add Total of All Dice</td>
 								<td>{{view.player2.K4}}</td>
 							</tr>
-							<tr>
+							<tr ng-click="checkFH('player2')">
 								<td>Full House</td>
 								<td>Score: 25</td>
 								<td>{{view.player2.FH}}</td>
 							</tr>
-							<td>Small Straight (4)</td>
-							<td>Score: 30</td>
-							<td>{{view.player2.SmS}}</td>
-							<tr>
+							<tr ng-click="checkSmS('player2')">
+								<td>Small Straight (4)</td>
+								<td>Score: 30</td>
+								<td>{{view.player2.SmS}}</td>
+							</tr>
+							<tr ng-click="checkLgS('player2')">
 								<td>Large Straight (5)</td>
 								<td>Score: 40</td>
 								<td>{{view.player2.LgS}}</td>
 							</tr>
-							<tr>
+							<tr ng-click="checkyahtzee('player2')">
 								<td>YAHTZEE!</td>
 								<td>Score: 50</td>
 								<td>{{view.player2.yahtzee}}</td>
 							</tr>
-							<tr>
+							<tr ng-click="checkchance('player2')">
 								<td>Chance</td>
 								<td>Score Total of All 5 Dice</td>
 								<td>{{view.player2.chance}}</td>
