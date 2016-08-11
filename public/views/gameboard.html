@@ -9,8 +9,12 @@
 										</div>
 
 	</section>
-
 	<div class="container-fluid backdrop">
+		<div class="row">
+		<div class="rollsleft dicecenter">
+			Rolls Left: {{view.rollsLeft}}
+		</div>
+				</div>
 		<div class="row">
 			<div class="dicecenter">
 				<div ng-repeat="die in view.viewResult track by $index">
