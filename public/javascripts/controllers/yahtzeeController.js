@@ -36,6 +36,12 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.view = {};
 	$scope.view.player1 = {};
 	$scope.view.player2 = {};
+	$scope.die0Held = false;
+	$scope.die1Held = false;
+	$scope.die2Held = false;
+	$scope.die3Held = false;
+	$scope.die4Held = false;
+	$scope.helddicearray = [];
 	$scope.view.player1.aces = 0;
 	$scope.view.player1.twos = 0;
 	$scope.view.player1.threes = 0;
@@ -77,59 +83,66 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 
 		var ref = firebase.database().ref().child( "view" );
 		$scope.view.player1.usedTwos = false;
-		var obj = $firebaseObject( ref );
-		obj.turn = 1;
-		obj.player1 = {};
-		obj.player2 = {};
-		obj.player1.aces = 0;
-		obj.player1.twos = 0;
-		obj.player1.threes = 0;
-		obj.player1.fours = 0;
-		obj.player1.fives = 0;
-		obj.player1.sixes = 0;
-		obj.player1.K3 = 0;
-		obj.player1.K4 = 0;
-		obj.player1.FH = 0;
-		obj.player1.SmS = 0;
-		obj.player1.LgS = 0;
-		obj.player1.yahtzee = 0;
-		obj.player1.chance = 0;
-		obj.player1.upperbonus = 0;
-		obj.player1.lowertotal = 0;
-		obj.player1.uppertotal = 0;
-		obj.player2.aces = 0;
-		obj.player2.twos = 0;
-		obj.player2.threes = 0;
-		obj.player2.fours = 0;
-		obj.player2.fives = 0;
-		obj.player2.sixes = 0;
-		obj.player2.K3 = 0;
-		obj.player2.K4 = 0;
-		obj.player2.FH = 0;
-		obj.player2.SmS = 0;
-		obj.player2.LgS = 0;
-		obj.player2.yahtzee = 0;
-		obj.player2.chance = 0;
-		obj.player2.upperbonus = 0;
-		obj.player2.lowertotal = 0;
-		obj.player2.uppertotal = 0;
-		obj.rollsLeft = 3;
-		obj.$save().then( function( ref ) {
-			ref.key === obj.$id;
-		} );
+		var obj = $firebaseObject(ref);
+		obj.rollsLeft=3;
+		obj.turn=1;
+		obj.player1={};
+		obj.player2={};
+		obj.player1.aces=0;
+		obj.player1.twos=0;
+		obj.player1.threes=0;
+		obj.player1.fours=0;
+		obj.player1.fives=0;
+		obj.player1.sixes=0;
+		obj.player1.K3=0;
+		obj.player1.K4=0;
+		obj.player1.FH=0;
+		obj.player1.SmS=0;
+		obj.player1.LgS=0;
+		obj.player1.yahtzee=0;
+		obj.player1.chance=0;
+		obj.player1.upperbonus=0;
+		obj.player1.lowertotal=0;
+		obj.player1.uppertotal=0;
+		obj.player2.aces=0;
+		obj.player2.twos=0;
+		obj.player2.threes=0;
+		obj.player2.fours=0;
+		obj.player2.fives=0;
+		obj.player2.sixes=0;
+		obj.player2.K3=0;
+		obj.player2.K4=0;
+		obj.player2.FH=0;
+		obj.player2.SmS=0;
+		obj.player2.LgS=0;
+		obj.player2.yahtzee=0;
+		obj.player2.chance=0;
+		obj.player2.upperbonus=0;
+		obj.player2.lowertotal=0;
+		obj.player2.uppertotal=0;
+		obj.$save().then(function(ref){
+			ref.key===obj.$id;
+		});
 	};
 	$scope.tossResult = [];
 	$scope.view.viewResult = "";
 	$scope.roll = function() {
-		var result = "";
-		var resultArray = [];
-		for ( var i = 0; i < 5; i++ ) {
-			var num = Math.ceil( Math.random() * 6 );
-			result += "" + num;
-			resultArray.push( num );
+		if ($scope.view.rollsLeft > 0) {
+			var result = "";
+			for ( var i = 0; i < 5; i++ ) {
+				if(!$scope.helddicearray.includes(i)){
+
+
+				var num = Math.ceil( Math.random() * 6 );
+					$scope.tossResult[i]=num;
+				}
+			}
+			$scope.view.rollsLeft--;
+			$scope.view.viewResult = $scope.tossResult.join('');
+			// $scope.tossResult = resultArray;
+		} else {
+			alert("You are out of rolls this turn!");
 		}
-		$scope.view.viewResult = result;
-		$scope.tossResult = resultArray;
 	};
 	$scope.updateUpperSubScore = function( player ) {
 		console.log( "fuck" );
@@ -243,6 +256,19 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		} else if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal < $scope.view.player2.grandtotal ) {
 			alert( "Game Over! Player 2 Wins by a score of " + $scope.view.player2.grandtotal + " to " + $scope.view.player1.grandtotal );
 		}
+		$scope.view.rollsLeft = 3;
+		$scope.tossResult = [];
+		$scope.view.viewResult = "";
+		$scope.helddicearray = [];
+	};
+	$scope.toggleHoldDie = function(index){
+		if ($scope.helddicearray.includes(index)){
+			var indexToCut = $scope.helddicearray.indexOf(index);
+			$scope.helddicearray.splice(indexToCut, 1);
+		} else {
+			$scope.helddicearray.push(index);
+		}
+		console.log($scope.helddicearray);
 	};
 } ] );
 

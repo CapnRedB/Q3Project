@@ -36,6 +36,9 @@
 	max-width: 50px;
 	max-height: 50px;
 }
+.held{
+	border: 1px solid red;
+}
 .dice:hover{
 	border: 1px solid blue;
 }

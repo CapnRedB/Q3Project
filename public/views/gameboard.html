@@ -19,7 +19,7 @@
 			<div class="dicecenter">
 				<div ng-repeat="die in view.viewResult track by $index">
 			<div class="col-xs-1">
-				<img class="dice" src="../img/{{die}}.png" alt="" />
+				<img class="dice" ng-class="{'held': helddicearray.includes($index)}" id="{{'die'+$index}}" src="../img/{{die}}.png" ng-click="toggleHoldDie($index)" alt="" />
 				</div>
 		</div>
 			<!-- <div class="col-xs-1">
