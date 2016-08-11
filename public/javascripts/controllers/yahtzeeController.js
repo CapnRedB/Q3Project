@@ -153,7 +153,8 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		if ( ( tossResult[ 0 ] === tossResult[ 1 ] && tossResult[ 0 ] === tossResult[ 2 ] && tossResult[ 0 ] === tossResult[ 3 ] && tossResult[ 0 ] === tossResult[ 4 ] ) && ( $scope.view[ player ].yahtzee === 50 ) ) {
 			$scope.view[ player ].bonus += 100;
 		} else {
-			alert( 'You do not have any yahtzees yet!' );
+			alert( 'You do not have any yahtzees yet! Putting 50 in yahtzee score' );
+			$scope.view[ player ].yahtzee = 50;
 		}
 	};
 	$scope.view.checkChance = function( player ) {
