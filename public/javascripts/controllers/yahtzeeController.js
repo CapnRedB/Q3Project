@@ -104,6 +104,7 @@ app.controller( "signUpCtrl", [ "$scope", "Auth",
 			// [END createwithemail]
 		}
 		$scope.auth = Auth;
+		console.log($scope.auth);
 
 		// any time auth state changes, add the user data to scope
 		$scope.auth.$onAuthStateChanged( function( firebaseUser ) {
@@ -167,6 +168,8 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.view.player2.lowertotal = $scope.view.player2.K3 + $scope.view.player2.K4 + $scope.view.player2.FH + $scope.view.player2.SmS + $scope.view.player2.LgS + $scope.view.player2.yahtzee + $scope.view.player2.chance + $scope.view.player2.yahtzeebonus;
 	$scope.view.player2.grandtotal = $scope.view.player2.uppertotal + $scope.view.player2.lowertotal;
 	$scope.view.rollsLeft = 3;
+	$scope.view.player1.Id = 'A3bgFs58rddurhi5KOg69JUCsLz2';
+	$scope.view.player2.Id = 'jyq8MIp7rkbOAh3UdOvnpVzYyKA3';
 	$scope.initGame = function() {
 
 		var ref = firebase.database().ref().child( "view" );
@@ -176,6 +179,8 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		obj.turn = 1;
 		obj.player1 = {};
 		obj.player2 = {};
+		obj.player1Id = 0;
+		obj.player2Id = 0;
 		obj.player1.aces = 0;
 		obj.player1.twos = 0;
 		obj.player1.threes = 0;
@@ -216,6 +221,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.tossResult = [];
 	$scope.view.viewResult = "";
 	$scope.roll = function() {
+		console.log($scope.auth);
 		if ( $scope.view.rollsLeft > 0 ) {
 			var result = "";
 			for ( var i = 0; i < 5; i++ ) {
