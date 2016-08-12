@@ -9,24 +9,46 @@ app.config( function( $routeProvider, $httpProvider, $locationProvider ) {
 		.when( '/game', {
 			templateUrl: '/views/gameboard.html',
 			controller: 'yahtzeeCtrl',
-			controllerAs: 'yahtzee'
+			controllerAs: 'yahtzee',
+			resolve: {
+      // controller will not be loaded until $requireSignIn resolves
+      // Auth refers to our $firebaseAuth wrapper in the factory below
+      "currentAuth": ["Auth", function(Auth) {
+        // $requireSignIn returns a promise so the resolve waits for it to complete
+        // If the promise is rejected, it will throw a $stateChangeError (see above)
+        return Auth.$requireSignIn();
+      }]
+    }
 		} )
 		.when( '/signup', {
 			templateUrl: '/views/signup.html',
-			controller: ''
+			controller: 'signUpCtrl'
 		} );
 	$locationProvider.html5Mode( {
 		enabled: true,
 		requireBase: false
 	} );
 } );
-app.controller( 'signupCtrl', [ '$scope', '$firebaseAuth', function( $scope, $firebaseAuth ) {
 
-} ] );
+app.factory("Auth", ["$firebaseAuth",
+  function($firebaseAuth) {
+    return $firebaseAuth();
+  }
+]);
+
+app.controller("signUpCtrl", ["$scope", "Auth",
+  function($scope, Auth) {
+    $scope.auth = Auth;
+
+    // any time auth state changes, add the user data to scope
+    $scope.auth.$onAuthStateChanged(function(firebaseUser) {
+      $scope.firebaseUser = firebaseUser;
+    });
+  }
+]);
 
 
-
-app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', function( $scope, $firebaseArray, $firebaseObject ) {
+app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 'currentAuth', function( $scope, $firebaseArray, $firebaseObject, currentAuth ) {
 	// var ref = firebase.database().ref().child( "player1" );
 	// 	$firebaseObject( ref ).$bindTo( $scope, "view.player1" );
 	// 	var ref2 = firebase.database().ref().child( "player2" );
