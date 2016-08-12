@@ -102,6 +102,7 @@ limitations under the License.
         // [END_EXCLUDE]
         if (user) {
           // User is signed in.
+					console.log(user.uid+" ");
           var displayName = user.displayName;
           var email = user.email;
           var emailVerified = user.emailVerified;
@@ -113,7 +114,7 @@ limitations under the License.
           // [START_EXCLUDE silent]
           document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
           document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-          document.getElementById('quickstart-account-details').textContent = JSON.stringify({
+          console.log(JSON.stringify({
             displayName: displayName,
             email: email,
             emailVerified: emailVerified,
@@ -122,7 +123,7 @@ limitations under the License.
             uid: uid,
             refreshToken: refreshToken,
             providerData: providerData
-          }, null, '  ');
+          }, null, '  '));
           if (!emailVerified) {
             //document.getElementById('quickstart-verify-email').disabled = false;
           }
@@ -173,9 +174,12 @@ limitations under the License.
           <br/><br/>
           <button class="btn btn-default signupbtn" id="quickstart-sign-in" name="signin" ng-click="toggleSignIn()">Sign In</button>
           &nbsp;&nbsp;&nbsp;
-          <button class="btn btn-default signupbtn" id="quickstart-sign-up" name="signup">Sign Up</button>
+          <button class="btn btn-default signupbtn" id="quickstart-sign-up" name="signup" ng-click="fuckYou()">Sign Up</button>
           &nbsp;&nbsp;&nbsp;
-
+					<button class="btn btn-default signupbtn" id="quickstart-sign-up" name="signup" ng-click="signOut()">Sign Out</button>
+					&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-default signupbtn" id="quickstart-sign-up" name="signup" ng-click="play()">PLAY!</button>
+					&nbsp;&nbsp;&nbsp;
 
 
     </div>

@@ -23,7 +23,7 @@
 }
 .background{
 	background-image: url("https://images7.alphacoders.com/377/377071.jpg");
-	background-repeat: no-repeat;
+	background-repeat: round;
 	background-size: cover;
 }
 .scorecard{
@@ -81,9 +81,13 @@ td{
 	padding-bottom: 20px;
 	border-radius: 10px;
 }
+.signupbtn{
+	background: #410B13;
+	border-color: #202030;
+	color:#FFBF00!important;
+}
 .signupbox{
 	background-color: rgba(57,62,65, .90);
-
 }
 .signupbox *{
 	background-color: rgba(57,62,65, .90);
@@ -108,4 +112,7 @@ td{
 	margin-top: 10px;
 	margin-bottom: 10px;
 	color: #FFBF00;
+}
+.turncard{
+	background-color: rgba(192,87,70, .90);
 }

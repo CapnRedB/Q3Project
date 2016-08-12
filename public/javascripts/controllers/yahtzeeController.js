@@ -36,12 +36,12 @@ app.factory( "Auth", [ "$firebaseAuth",
   }
 ] );
 
-app.controller( "signUpCtrl", [ "$scope", "Auth",
-  function( $scope, Auth ) {
+app.controller( "signUpCtrl", [ "$scope", "Auth", "$location", function( $scope, Auth, $location ) {
 		$scope.toggleSignIn = function() {
 			console.log( "SIGN IT" );
 			if ( firebase.auth().currentUser ) {
 				// [START signout]
+				console.log( "here" );
 				firebase.auth().signOut();
 				// [END signout]
 			} else {
@@ -59,6 +59,9 @@ app.controller( "signUpCtrl", [ "$scope", "Auth",
 				// [START authwithemail]
 				firebase.auth().signInWithEmailAndPassword( email, password ).catch( function( error ) {
 					// Handle Errors here.
+					console.log( 'HELLO' );
+					console.log( user.uid );
+
 					var errorCode = error.code;
 					var errorMessage = error.message;
 					// [START_EXCLUDE]
@@ -72,6 +75,10 @@ app.controller( "signUpCtrl", [ "$scope", "Auth",
 					// [END_EXCLUDE]
 				} );
 				// [END authwithemail]
+				console.log( "here2" );
+				var fire = firebase.auth();
+				console.log( fire.currentUser );
+				console.log( firebase.auth() );
 			}
 			document.getElementById( 'quickstart-sign-in' ).disabled = true;
 		}
@@ -103,6 +110,23 @@ app.controller( "signUpCtrl", [ "$scope", "Auth",
 			} );
 			// [END createwithemail]
 		}
+		$scope.fuckYou = function() {
+			alert( "NOT WHILE WE ARE PRESENTING YOU DON'T!" );
+		}
+		$scope.play = function() {
+			if ( firebase.auth().currentUser ) {
+				$location.path( '/game' );
+			} else {
+				alert( "YOU HAVE TO BE LOGGED IN!" );
+			}
+		}
+		$scope.signOut = function() {
+			firebase.auth().signOut().then( function() {
+				// Sign-out successful.
+			}, function( error ) {
+				// An error happened.
+			} );
+		}
 		$scope.auth = Auth;
 
 		// any time auth state changes, add the user data to scope
@@ -124,6 +148,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	$scope.view = {};
 	$scope.view.player1 = {};
 	$scope.view.player2 = {};
+	$scope.view.presentationSafe = false;
 	$scope.die0Held = false;
 	$scope.die1Held = false;
 	$scope.die2Held = false;
@@ -176,6 +201,8 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		obj.turn = 1;
 		obj.player1 = {};
 		obj.player2 = {};
+		obj.player1Id = 0;
+		obj.player2Id = 0;
 		obj.player1.aces = 0;
 		obj.player1.twos = 0;
 		obj.player1.threes = 0;
@@ -208,7 +235,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		obj.player2.upperbonus = 0;
 		obj.player2.lowertotal = 0;
 		obj.player2.uppertotal = 0;
-		obj.presentationSafe = true;
+		obj.presentationSafe = false;
 		obj.$save().then( function( ref ) {
 			ref.key === obj.$id;
 		} );
