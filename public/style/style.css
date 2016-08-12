@@ -31,16 +31,16 @@
 
 	background-color: rgba(65, 11, 19, .75);
 }
-
+.used{
+	background-color: #FFBF00;
+	color: rgba(65, 11, 19, .75);
+}
 .dice{
 	max-width: 50px;
 	max-height: 50px;
 }
 .held{
 	border: 1px solid red;
-}
-.dice:hover{
-	border: 1px solid blue;
 }
 .dicecenter{
 	display: flex;

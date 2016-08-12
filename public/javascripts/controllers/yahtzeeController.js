@@ -33,6 +33,7 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 	//$firebaseObject( ref2 ).$bindTo( $scope, "view.player2" );
 	var ref3 = firebase.database().ref().child( "view" );
 	$firebaseObject( ref3 ).$bindTo( $scope, "view" );
+	$scope.helddicearray = [];
 	$scope.view = {};
 	$scope.view.player1 = {};
 	$scope.view.player2 = {};
@@ -248,14 +249,14 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		$scope.updateLowerScore( player );
 	};
 	$scope.buttonClicked = function() {
-		$scope.view.turn++;
-		if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal > $scope.view.player2.grandtotal ) {
+		if ( $scope.view.turn > 26 && $scope.view.player1.grandtotal > $scope.view.player2.grandtotal ) {
 			alert( "Game Over! Player 1 Wins by a score of " + $scope.view.player1.grandtotal + " to " + $scope.view.player2.grandtotal );
-		} else if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal === $scope.view.player2.grandtotal ) {
+		} else if ( $scope.view.turn > 26 && $scope.view.player1.grandtotal === $scope.view.player2.grandtotal ) {
 			alert( "Game Over! You tied!" );
-		} else if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal < $scope.view.player2.grandtotal ) {
+		} else if ( $scope.view.turn > 26 && $scope.view.player1.grandtotal < $scope.view.player2.grandtotal ) {
 			alert( "Game Over! Player 2 Wins by a score of " + $scope.view.player2.grandtotal + " to " + $scope.view.player1.grandtotal );
 		}
+		$scope.view.turn++;
 		$scope.view.rollsLeft = 3;
 		$scope.tossResult = [];
 		$scope.view.viewResult = "";
