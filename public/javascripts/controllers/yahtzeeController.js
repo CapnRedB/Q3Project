@@ -20,6 +20,7 @@ app.config( function( $routeProvider, $httpProvider, $locationProvider ) {
 		requireBase: false
 	} );
 } );
+
 app.controller( 'signupCtrl', [ '$scope', '$firebaseAuth', function( $scope, $firebaseAuth ) {
 
 } ] );
@@ -84,65 +85,66 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 
 		var ref = firebase.database().ref().child( "view" );
 		$scope.view.player1.usedTwos = false;
-		var obj = $firebaseObject(ref);
-		obj.rollsLeft=3;
-		obj.turn=1;
-		obj.player1={};
-		obj.player2={};
-		obj.player1.aces=0;
-		obj.player1.twos=0;
-		obj.player1.threes=0;
-		obj.player1.fours=0;
-		obj.player1.fives=0;
-		obj.player1.sixes=0;
-		obj.player1.K3=0;
-		obj.player1.K4=0;
-		obj.player1.FH=0;
-		obj.player1.SmS=0;
-		obj.player1.LgS=0;
-		obj.player1.yahtzee=0;
-		obj.player1.chance=0;
-		obj.player1.upperbonus=0;
-		obj.player1.lowertotal=0;
-		obj.player1.uppertotal=0;
-		obj.player2.aces=0;
-		obj.player2.twos=0;
-		obj.player2.threes=0;
-		obj.player2.fours=0;
-		obj.player2.fives=0;
-		obj.player2.sixes=0;
-		obj.player2.K3=0;
-		obj.player2.K4=0;
-		obj.player2.FH=0;
-		obj.player2.SmS=0;
-		obj.player2.LgS=0;
-		obj.player2.yahtzee=0;
-		obj.player2.chance=0;
-		obj.player2.upperbonus=0;
-		obj.player2.lowertotal=0;
-		obj.player2.uppertotal=0;
-		obj.$save().then(function(ref){
-			ref.key===obj.$id;
-		});
+		var obj = $firebaseObject( ref );
+		obj.rollsLeft = 3;
+		obj.turn = 1;
+		obj.player1 = {};
+		obj.player2 = {};
+		obj.player1.aces = 0;
+		obj.player1.twos = 0;
+		obj.player1.threes = 0;
+		obj.player1.fours = 0;
+		obj.player1.fives = 0;
+		obj.player1.sixes = 0;
+		obj.player1.K3 = 0;
+		obj.player1.K4 = 0;
+		obj.player1.FH = 0;
+		obj.player1.SmS = 0;
+		obj.player1.LgS = 0;
+		obj.player1.yahtzee = 0;
+		obj.player1.chance = 0;
+		obj.player1.upperbonus = 0;
+		obj.player1.lowertotal = 0;
+		obj.player1.uppertotal = 0;
+		obj.player2.aces = 0;
+		obj.player2.twos = 0;
+		obj.player2.threes = 0;
+		obj.player2.fours = 0;
+		obj.player2.fives = 0;
+		obj.player2.sixes = 0;
+		obj.player2.K3 = 0;
+		obj.player2.K4 = 0;
+		obj.player2.FH = 0;
+		obj.player2.SmS = 0;
+		obj.player2.LgS = 0;
+		obj.player2.yahtzee = 0;
+		obj.player2.chance = 0;
+		obj.player2.upperbonus = 0;
+		obj.player2.lowertotal = 0;
+		obj.player2.uppertotal = 0;
+		obj.presentationSafe = true;
+		obj.$save().then( function( ref ) {
+			ref.key === obj.$id;
+		} );
 	};
 	$scope.tossResult = [];
 	$scope.view.viewResult = "";
 	$scope.roll = function() {
-		if ($scope.view.rollsLeft > 0) {
+		if ( $scope.view.rollsLeft > 0 ) {
 			var result = "";
 			for ( var i = 0; i < 5; i++ ) {
-				if(!$scope.helddicearray.includes(i)){
+				if ( !$scope.helddicearray.includes( i ) ) {
 
 
-				var num = Math.ceil( Math.random() * 6 );
-					$scope.tossResult[i]=num;
+					var num = Math.ceil( Math.random() * 6 );
+					$scope.tossResult[ i ] = num;
 				}
 			}
 			$scope.view.rollsLeft--;
-			$scope.view.viewResult = $scope.tossResult.join('');
+			$scope.view.viewResult = $scope.tossResult.join( '' );
 			// $scope.tossResult = resultArray;
 		} else {
-			alert("You are out of rolls this turn!");
+			alert( "You are out of rolls this turn!" );
 		}
 	};
 	$scope.updateUpperSubScore = function( player ) {
@@ -262,14 +264,14 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		$scope.view.viewResult = "";
 		$scope.helddicearray = [];
 	};
-	$scope.toggleHoldDie = function(index){
-		if ($scope.helddicearray.includes(index)){
-			var indexToCut = $scope.helddicearray.indexOf(index);
-			$scope.helddicearray.splice(indexToCut, 1);
+	$scope.toggleHoldDie = function( index ) {
+		if ( $scope.helddicearray.includes( index ) ) {
+			var indexToCut = $scope.helddicearray.indexOf( index );
+			$scope.helddicearray.splice( indexToCut, 1 );
 		} else {
-			$scope.helddicearray.push(index);
+			$scope.helddicearray.push( index );
 		}
-		console.log($scope.helddicearray);
+		console.log( $scope.helddicearray );
 	};
 } ] );
 
