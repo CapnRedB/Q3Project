@@ -202,7 +202,7 @@ limitations under the License.
         // [END_EXCLUDE]
       });
       // [END authstatelistener]
-      document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+      document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, true);
       document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
 			console.log("Initialized");
     }
@@ -220,8 +220,8 @@ limitations under the License.
   <header class="signupheader">
     <div class="signupheader">
         <a class="signuptext bar" href="/"><h3>YAHTZEE!</h3></a>
-    </div>  </header>
-
+    </div>
+  </header>
   <main class="signup">
     <div class="">
 
@@ -233,7 +233,7 @@ limitations under the License.
           &nbsp;&nbsp;&nbsp;
           <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
           <br/><br/>
-          <button disabled class="btn btn-default signupbtn" id="quickstart-sign-in" name="signin">Sign In</button>
+          <button class="btn btn-default signupbtn" id="quickstart-sign-in" name="signin">Sign In</button>
           &nbsp;&nbsp;&nbsp;
           <button class="btn btn-default signupbtn" id="quickstart-sign-up" name="signup">Sign Up</button>
           &nbsp;&nbsp;&nbsp;
