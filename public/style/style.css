@@ -42,9 +42,6 @@
 .held{
 	border: 1px solid red;
 }
-.dice:hover{
-	border: 1px solid blue;
-}
 .dicecenter{
 	display: flex;
 	justify-content: center;

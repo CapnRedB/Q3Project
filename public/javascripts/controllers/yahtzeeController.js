@@ -249,11 +249,11 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		$scope.updateLowerScore( player );
 	};
 	$scope.buttonClicked = function() {
-		if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal > $scope.view.player2.grandtotal ) {
+		if ( $scope.view.turn > 26 && $scope.view.player1.grandtotal > $scope.view.player2.grandtotal ) {
 			alert( "Game Over! Player 1 Wins by a score of " + $scope.view.player1.grandtotal + " to " + $scope.view.player2.grandtotal );
-		} else if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal === $scope.view.player2.grandtotal ) {
+		} else if ( $scope.view.turn > 26 && $scope.view.player1.grandtotal === $scope.view.player2.grandtotal ) {
 			alert( "Game Over! You tied!" );
-		} else if ( $scope.view.turn >= 26 && $scope.view.player1.grandtotal < $scope.view.player2.grandtotal ) {
+		} else if ( $scope.view.turn > 26 && $scope.view.player1.grandtotal < $scope.view.player2.grandtotal ) {
 			alert( "Game Over! Player 2 Wins by a score of " + $scope.view.player2.grandtotal + " to " + $scope.view.player1.grandtotal );
 		}
 		$scope.view.turn++;
