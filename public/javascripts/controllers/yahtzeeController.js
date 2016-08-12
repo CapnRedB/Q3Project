@@ -11,14 +11,14 @@ app.config( function( $routeProvider, $httpProvider, $locationProvider ) {
 			controller: 'yahtzeeCtrl',
 			controllerAs: 'yahtzee',
 			resolve: {
-      // controller will not be loaded until $requireSignIn resolves
-      // Auth refers to our $firebaseAuth wrapper in the factory below
-      "currentAuth": ["Auth", function(Auth) {
-        // $requireSignIn returns a promise so the resolve waits for it to complete
-        // If the promise is rejected, it will throw a $stateChangeError (see above)
-        return Auth.$requireSignIn();
-      }]
-    }
+				// controller will not be loaded until $requireSignIn resolves
+				// Auth refers to our $firebaseAuth wrapper in the factory below
+				"currentAuth": [ "Auth", function( Auth ) {
+					// $requireSignIn returns a promise so the resolve waits for it to complete
+					// If the promise is rejected, it will throw a $stateChangeError (see above)
+					return Auth.$requireSignIn();
+      } ]
+			}
 		} )
 		.when( '/signup', {
 			templateUrl: '/views/signup.html',
@@ -30,22 +30,87 @@ app.config( function( $routeProvider, $httpProvider, $locationProvider ) {
 	} );
 } );
 
-app.factory("Auth", ["$firebaseAuth",
-  function($firebaseAuth) {
-    return $firebaseAuth();
+app.factory( "Auth", [ "$firebaseAuth",
+  function( $firebaseAuth ) {
+		return $firebaseAuth();
   }
-]);
+] );
 
-app.controller("signUpCtrl", ["$scope", "Auth",
-  function($scope, Auth) {
-    $scope.auth = Auth;
+app.controller( "signUpCtrl", [ "$scope", "Auth",
+  function( $scope, Auth ) {
+		$scope.toggleSignIn = function() {
+			console.log( "SIGN IT" );
+			if ( firebase.auth().currentUser ) {
+				// [START signout]
+				firebase.auth().signOut();
+				// [END signout]
+			} else {
+				var email = document.getElementById( 'email' ).value;
+				var password = document.getElementById( 'password' ).value;
+				if ( email.length < 4 ) {
+					alert( 'Please enter an email address.' );
+					return;
+				}
+				if ( password.length < 4 ) {
+					alert( 'Please enter a password.' );
+					return;
+				}
+				// Sign in with email and pass.
+				// [START authwithemail]
+				firebase.auth().signInWithEmailAndPassword( email, password ).catch( function( error ) {
+					// Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					// [START_EXCLUDE]
+					if ( errorCode === 'auth/wrong-password' ) {
+						alert( 'Wrong password.' );
+					} else {
+						alert( errorMessage );
+					}
+					console.log( error );
+					document.getElementById( 'quickstart-sign-in' ).disabled = false;
+					// [END_EXCLUDE]
+				} );
+				// [END authwithemail]
+			}
+			document.getElementById( 'quickstart-sign-in' ).disabled = true;
+		}
+		$scope.handleSignUp = function() {
+			var email = document.getElementById( 'email' ).value;
+			var password = document.getElementById( 'password' ).value;
+			if ( email.length < 4 ) {
+				alert( 'Please enter an email address.' );
+				return;
+			}
+			if ( password.length < 4 ) {
+				alert( 'Please enter a password.' );
+				return;
+			}
+			// Sign in with email and pass.
+			// [START createwithemail]
+			firebase.auth().createUserWithEmailAndPassword( email, password ).catch( function( error ) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				// [START_EXCLUDE]
+				if ( errorCode == 'auth/weak-password' ) {
+					alert( 'The password is too weak.' );
+				} else {
+					alert( errorMessage );
+				}
+				console.log( error );
+				// [END_EXCLUDE]
+			} );
+			// [END createwithemail]
+		}
+		$scope.auth = Auth;
 
-    // any time auth state changes, add the user data to scope
-    $scope.auth.$onAuthStateChanged(function(firebaseUser) {
-      $scope.firebaseUser = firebaseUser;
-    });
+		// any time auth state changes, add the user data to scope
+		$scope.auth.$onAuthStateChanged( function( firebaseUser ) {
+			$scope.firebaseUser = firebaseUser;
+		} );
   }
-]);
+] );
 
 
 app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 'currentAuth', function( $scope, $firebaseArray, $firebaseObject, currentAuth ) {
@@ -106,65 +171,66 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 
 		var ref = firebase.database().ref().child( "view" );
 		$scope.view.player1.usedTwos = false;
-		var obj = $firebaseObject(ref);
-		obj.rollsLeft=3;
-		obj.turn=1;
-		obj.player1={};
-		obj.player2={};
-		obj.player1.aces=0;
-		obj.player1.twos=0;
-		obj.player1.threes=0;
-		obj.player1.fours=0;
-		obj.player1.fives=0;
-		obj.player1.sixes=0;
-		obj.player1.K3=0;
-		obj.player1.K4=0;
-		obj.player1.FH=0;
-		obj.player1.SmS=0;
-		obj.player1.LgS=0;
-		obj.player1.yahtzee=0;
-		obj.player1.chance=0;
-		obj.player1.upperbonus=0;
-		obj.player1.lowertotal=0;
-		obj.player1.uppertotal=0;
-		obj.player2.aces=0;
-		obj.player2.twos=0;
-		obj.player2.threes=0;
-		obj.player2.fours=0;
-		obj.player2.fives=0;
-		obj.player2.sixes=0;
-		obj.player2.K3=0;
-		obj.player2.K4=0;
-		obj.player2.FH=0;
-		obj.player2.SmS=0;
-		obj.player2.LgS=0;
-		obj.player2.yahtzee=0;
-		obj.player2.chance=0;
-		obj.player2.upperbonus=0;
-		obj.player2.lowertotal=0;
-		obj.player2.uppertotal=0;
-		obj.$save().then(function(ref){
-			ref.key===obj.$id;
-		});
+		var obj = $firebaseObject( ref );
+		obj.rollsLeft = 3;
+		obj.turn = 1;
+		obj.player1 = {};
+		obj.player2 = {};
+		obj.player1.aces = 0;
+		obj.player1.twos = 0;
+		obj.player1.threes = 0;
+		obj.player1.fours = 0;
+		obj.player1.fives = 0;
+		obj.player1.sixes = 0;
+		obj.player1.K3 = 0;
+		obj.player1.K4 = 0;
+		obj.player1.FH = 0;
+		obj.player1.SmS = 0;
+		obj.player1.LgS = 0;
+		obj.player1.yahtzee = 0;
+		obj.player1.chance = 0;
+		obj.player1.upperbonus = 0;
+		obj.player1.lowertotal = 0;
+		obj.player1.uppertotal = 0;
+		obj.player2.aces = 0;
+		obj.player2.twos = 0;
+		obj.player2.threes = 0;
+		obj.player2.fours = 0;
+		obj.player2.fives = 0;
+		obj.player2.sixes = 0;
+		obj.player2.K3 = 0;
+		obj.player2.K4 = 0;
+		obj.player2.FH = 0;
+		obj.player2.SmS = 0;
+		obj.player2.LgS = 0;
+		obj.player2.yahtzee = 0;
+		obj.player2.chance = 0;
+		obj.player2.upperbonus = 0;
+		obj.player2.lowertotal = 0;
+		obj.player2.uppertotal = 0;
+		obj.presentationSafe = true;
+		obj.$save().then( function( ref ) {
+			ref.key === obj.$id;
+		} );
 	};
 	$scope.tossResult = [];
 	$scope.view.viewResult = "";
 	$scope.roll = function() {
-		if ($scope.view.rollsLeft > 0) {
+		if ( $scope.view.rollsLeft > 0 ) {
 			var result = "";
 			for ( var i = 0; i < 5; i++ ) {
-				if(!$scope.helddicearray.includes(i)){
+				if ( !$scope.helddicearray.includes( i ) ) {
 
 
-				var num = Math.ceil( Math.random() * 6 );
-					$scope.tossResult[i]=num;
+					var num = Math.ceil( Math.random() * 6 );
+					$scope.tossResult[ i ] = num;
 				}
 			}
 			$scope.view.rollsLeft--;
-			$scope.view.viewResult = $scope.tossResult.join('');
+			$scope.view.viewResult = $scope.tossResult.join( '' );
 			// $scope.tossResult = resultArray;
 		} else {
-			alert("You are out of rolls this turn!");
+			alert( "You are out of rolls this turn!" );
 		}
 	};
 	$scope.updateUpperSubScore = function( player ) {
@@ -284,14 +350,14 @@ app.controller( 'yahtzeeCtrl', [ '$scope', '$firebaseArray', '$firebaseObject', 
 		$scope.view.viewResult = "";
 		$scope.helddicearray = [];
 	};
-	$scope.toggleHoldDie = function(index){
-		if ($scope.helddicearray.includes(index)){
-			var indexToCut = $scope.helddicearray.indexOf(index);
-			$scope.helddicearray.splice(indexToCut, 1);
+	$scope.toggleHoldDie = function( index ) {
+		if ( $scope.helddicearray.includes( index ) ) {
+			var indexToCut = $scope.helddicearray.indexOf( index );
+			$scope.helddicearray.splice( indexToCut, 1 );
 		} else {
-			$scope.helddicearray.push(index);
+			$scope.helddicearray.push( index );
 		}
-		console.log($scope.helddicearray);
+		console.log( $scope.helddicearray );
 	};
 } ] );
 
